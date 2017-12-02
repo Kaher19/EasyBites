@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Repositorio/EBites/EasyBites/src/Vista/Register.java</file>
             <file>file:/C:/Repositorio/EBites/EasyBites/src/Modelo/Conexion.java</file>
-            <file>file:/C:/Repositorio/EBites/EasyBites/src/Vista/PanelPrincipal.java</file>
+            <file>file:/C:/Repositorio/EBites/EasyBites/src/Modelo/usuarios.java</file>
+            <file>file:/C:/Repositorio/EBites/EasyBites/test/PruebasUnitarias/ConnectionTest.java</file>
         </group>
     </open-files>
 </project-private>
