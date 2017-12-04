@@ -4,15 +4,12 @@
  */
 package easybites;
 
-import Modelo.Conect;
+import Vista.FrontView;
 
 public class EasyBites {
 
     public static void main(String[] args) {
-        Conect con = new Conect();
-        
-        con.getConexion();
-        
+        FrontView fv = new FrontView();
     }
     
 }
