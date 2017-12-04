@@ -21,16 +21,15 @@ public class Conect{
     
     public Connection getConexion(){
      
+        //proceso para la conexión a la base de datos
         try {
-            Class.forName("con.mysql.jdbc.Driver");
-            con =  (Connection) DriverManager.getConnection(url,user,password);
-            
+            Class.forName("com.mysql.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(url,user,password);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Conect.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Conect.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
         
         return con;
     }
