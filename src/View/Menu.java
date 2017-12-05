@@ -113,7 +113,8 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addelementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addelementActionPerformed
-            
+            AddOrder add = new AddOrder();        //hackerwey
+            add.setVisible(true);
     }//GEN-LAST:event_addelementActionPerformed
 
     /**
