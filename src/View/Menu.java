@@ -11,6 +11,9 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu() {
         initComponents();
+        
+        txtprecio.setEditable(false);
+        
         DefaultTableModel cajatabla;
         DefaultTableModel menutabla;
         DefaultTableModel ordentabla;
@@ -106,6 +109,12 @@ public class Menu extends javax.swing.JFrame {
         btncerrarorden.setText("Cerrar Orden");
 
         jLabel1.setText("total");
+
+        txtprecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtprecioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -326,6 +335,10 @@ public class Menu extends javax.swing.JFrame {
         AgregaElemento agregaelemento = new AgregaElemento();
         agregaelemento.setVisible(true);
     }//GEN-LAST:event_btnanadirelementoActionPerformed
+
+    private void txtprecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecioActionPerformed
+       
+    }//GEN-LAST:event_txtprecioActionPerformed
 
     /**
      * @param args the command line arguments
