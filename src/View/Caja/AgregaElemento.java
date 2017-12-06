@@ -134,9 +134,9 @@ public class AgregaElemento extends javax.swing.JFrame {
         nombre = txtElemento.getText();
         tabla = String.valueOf(cbxTabla.getSelectedItem());
         
-        System.out.println(nombre);
-        System.out.println(cantidad);
-        System.out.println(tabla);
+        //System.out.println(nombre);
+        //System.out.println(cantidad);
+        //System.out.println(tabla);
         
         //envia de regreso los datos y los almacena en un método dedicado a almacenarlos
         menu.agregar(nombre, cantidad, tabla);

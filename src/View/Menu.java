@@ -14,9 +14,7 @@ public class Menu extends javax.swing.JFrame {
     //creacion del objeto tabla
     DefaultTableModel model = new DefaultTableModel();
     
-    private int cantidad;
-    private String elemento;
-    private String tabla;
+    
     
     
     
@@ -33,27 +31,23 @@ public class Menu extends javax.swing.JFrame {
         JtblCaja.setModel(model);
     }
     
-    public void guardar(String elemento, int cantidad, String tabla){
-        //pruebas con println para saber si llegan los elementos
-        //System.out.println(elemento);
-        //System.out.println(cantidad);
-        //System.out.println(tabla);
-        
-        //asignacion a atributos globales
-        this.elemento = elemento;
-        this.cantidad = cantidad;
-        this.tabla = tabla;
-    }
-    
     public void agregar(String nombre, int cantidad, String tabla){
         
-        /* el método si se invoca pero el pelaná no añade el elemento a la tabla
+        // el método si se invoca pero el pelaná no añade el elemento a la tabla
         System.out.println("comprobando que se invoca este metodo");
+        
+        tabla(nombre, cantidad, tabla);
+    }
+    
+    //ya revise y se invocan ambos metodos, aunque algo aun no me queda claro el porque no añade los elementos
+    //a la tabla
+    void tabla(String nombre, int cantidad, String tabla){
+        
         System.out.println(nombre);
         System.out.println(cantidad);
-        System.out.println(tabla); */
+        System.out.println(tabla); 
         
-        model.addRow(new Object[]{nombre,cantidad,tabla});
+        model.addRow(new Object[]{nombre, cantidad, tabla});
     }
     
     @SuppressWarnings("unchecked")
