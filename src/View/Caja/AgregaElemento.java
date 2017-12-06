@@ -40,7 +40,7 @@ public class AgregaElemento extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar en");
 
-        cbxTablas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Platillo", "bebida", "plato fuerte", "postre" }));
+        cbxTablas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "platillo", "bebida", "plato fuerte", "postre" }));
 
         jLabel2.setText("Nombre del Producto");
 
@@ -114,7 +114,19 @@ public class AgregaElemento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnagregarordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarordenActionPerformed
-        this.dispose();
+        //preparandose para checar la consulta
+        ConstructorCaja caja = new ConstructorCaja();
+        
+        //obtencion de los datos
+        caja.setNombre(txtnombre.getText());
+        caja.setCantidad(Integer.parseInt(txtcantidad.getText()));
+        caja.setBase(String.valueOf(cbxTablas.getSelectedItem()));
+        
+        //pruebas para ver que todo este en orden
+        /*System.out.println(caja.getNombre());
+        System.out.println(caja.getCantidad());
+        System.out.println(caja.getBase());*/
+        
     }//GEN-LAST:event_btnagregarordenActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
