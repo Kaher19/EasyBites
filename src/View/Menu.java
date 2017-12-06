@@ -72,11 +72,6 @@ public class Menu extends javax.swing.JFrame {
         btncancelarorden = new javax.swing.JButton();
         btncerrar = new javax.swing.JButton();
         btnfinalizarorden = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tblhistorial = new javax.swing.JTable();
-        btnRegistro = new javax.swing.JButton();
-        btnregistromes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -266,51 +261,6 @@ public class Menu extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("ordenes", jPanel6);
 
-        tblhistorial.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(tblhistorial);
-
-        btnRegistro.setText("registro");
-
-        btnregistromes.setText("cerrar mes");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnregistromes, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(btnRegistro)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnregistromes))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("finanzas", jPanel7);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -331,14 +281,14 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtprecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecioActionPerformed
+
+    }//GEN-LAST:event_txtprecioActionPerformed
+
     private void btnanadirelementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnanadirelementoActionPerformed
         AgregaElemento agregaelemento = new AgregaElemento();
         agregaelemento.setVisible(true);
     }//GEN-LAST:event_btnanadirelementoActionPerformed
-
-    private void txtprecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecioActionPerformed
-       
-    }//GEN-LAST:event_txtprecioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,7 +326,6 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistro;
     private javax.swing.JButton btnanadirelemento;
     private javax.swing.JButton btncancelarorden;
     private javax.swing.JButton btncerrar;
@@ -389,20 +338,16 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnmodificarmDish;
     private javax.swing.JButton btnmodificarplatillo;
     private javax.swing.JButton btnmodificarpostres;
-    private javax.swing.JButton btnregistromes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable tblcaja;
     private javax.swing.JTable tblcambiosmenu;
-    private javax.swing.JTable tblhistorial;
     private javax.swing.JTable tblordenes;
     private javax.swing.JTextField txtprecio;
     // End of variables declaration//GEN-END:variables

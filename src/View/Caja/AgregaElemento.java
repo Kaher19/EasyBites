@@ -5,6 +5,8 @@
  */
 package View.Caja;
 
+import Model.Query.QueryCaja;
+
 /**
  *
  * @author Kevin
@@ -117,15 +119,24 @@ public class AgregaElemento extends javax.swing.JFrame {
         //preparandose para checar la consulta
         ConstructorCaja caja = new ConstructorCaja();
         
+        //el objeto de query para trabajr
+        QueryCaja query = new QueryCaja();
+        
         //obtencion de los datos
         caja.setNombre(txtnombre.getText());
         caja.setCantidad(Integer.parseInt(txtcantidad.getText()));
         caja.setBase(String.valueOf(cbxTablas.getSelectedItem()));
         
-        //pruebas para ver que todo este en orden
-        /*System.out.println(caja.getNombre());
+        //si no me equivoco cualquier opcion seleccionada debe lanzar error, elemento no agregado
+        System.out.println(caja.getBase());
+        System.out.println(caja.getNombre());
         System.out.println(caja.getCantidad());
-        System.out.println(caja.getBase());*/
+        System.out.println(caja.getIdbase());
+        
+        query.addfila(caja.getNombre(), caja.getBase(), caja.getCantidad());
+        
+        //pruebas para ver que todo este en orden
+        
         
     }//GEN-LAST:event_btnagregarordenActionPerformed
 
