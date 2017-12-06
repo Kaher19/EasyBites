@@ -4,58 +4,56 @@
  */
 package View;
 
+//inserts hechos para llamar elementos del UI
+import View.Caja.AgregaElemento;
+
+//inserts necesarios del java
 import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
+    //creacion del objeto tabla
     DefaultTableModel model = new DefaultTableModel();
+    
     private int cantidad;
-    private float precio;
-    private String Nombre;
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
+    private String elemento;
+    private String tabla;
     
     
     
     public Menu() {
         initComponents();
+        
+        //elemento usdao para evitar que el txtPrecio sea editable
+        txtPrecio.setEditable(false);
+        
+        //modelo definido de la tabla de elementos de la orden (declarado dentro del constructor)
         String cabecera[]={"nombre","cantidad","precio"};
         String datos[][]={};
         model = new DefaultTableModel(datos,cabecera);
         JtblCaja.setModel(model);
     }
     
-    public void guardardatos(String nombre, int cantidad, float precio){
-          this.setCantidad(cantidad);
-          this.setNombre(nombre);
-          this.setPrecio(precio);
+    public void guardar(String elemento, int cantidad, String tabla){
+        //pruebas con println para saber si llegan los elementos
+        //System.out.println(elemento);
+        //System.out.println(cantidad);
+        //System.out.println(tabla);
+        
+        //asignacion a atributos globales
+        this.elemento = elemento;
+        this.cantidad = cantidad;
+        this.tabla = tabla;
     }
     
-    public void agregar(String nombre, int cantidad, float precio){
+    public void agregar(String nombre, int cantidad, String tabla){
         
+        /* el método si se invoca pero el pelaná no añade el elemento a la tabla
+        System.out.println("comprobando que se invoca este metodo");
+        System.out.println(nombre);
+        System.out.println(cantidad);
+        System.out.println(tabla); */
         
-        model.addRow(new Object[]{nombre, cantidad, precio});
+        model.addRow(new Object[]{nombre,cantidad,tabla});
     }
     
     @SuppressWarnings("unchecked")
@@ -182,21 +180,33 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
 
     }//GEN-LAST:event_txtPrecioActionPerformed
 
+    
+    //acciones del boton agregar elemento
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
+        //genera el objeto para abrir el segundo jframe
+        AgregaElemento addItem = new AgregaElemento();
+        addItem.setVisible(true);
+        
+        //System.out.println(this.elemento);
+        //System.out.println(this.cantidad);
+        //System.out.println(this.tabla);
+        
+        //System.out.println("this prints money");
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    
+    //acciones realizadas por el boton de quitar elemento
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         
     }//GEN-LAST:event_btnQuitarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
