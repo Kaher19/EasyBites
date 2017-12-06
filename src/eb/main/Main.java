@@ -5,7 +5,7 @@
  */
 package eb.main;
 
-import eb.model.Model;
+import eb.view.View;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new Model();
+        new View();
     }
     
 }
