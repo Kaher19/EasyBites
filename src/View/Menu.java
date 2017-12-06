@@ -8,42 +8,57 @@ import View.Caja.AgregaElemento;
 import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
-    DefaultTableModel cajatabla;
-    DefaultTableModel menutabla;
-    DefaultTableModel ordentabla;
+    DefaultTableModel model = new DefaultTableModel();
+    private int cantidad;
+    private float precio;
+    private String Nombre;
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+    
+    
     
     public Menu() {
         initComponents();
-        
-        txtprecio.setEditable(false);
-        
-        
-        //carga de modelos de la primera tabla
-        String ctabla[]={"platillo","cantidad","precio"};
-        String cdatos[][]={};
-        cajatabla = new DefaultTableModel(cdatos,ctabla);
-        tblcaja.setModel(cajatabla);
-        
-        //carga de modelo de la segunda tabla
-        String mtabla[] = {"cambio","descripcion","tabla Afectada"};
-        String mdatos[][]={};
-        menutabla = new DefaultTableModel(mdatos,mtabla);
-        tblcambiosmenu.setModel(menutabla);
-        
-        //carga de modelo de la tercera tabla
-        String otabla[]={"Orden","Titular","Precio"};
-        String odatos[][]={};
-        ordentabla = new DefaultTableModel(odatos,otabla);
-        tblordenes.setModel(ordentabla);
-       
+        String cabecera[]={"nombre","cantidad","precio"};
+        String datos[][]={};
+        model = new DefaultTableModel(datos,cabecera);
+        tblcaja.setModel(model);
     }
     
-    //metodo que almacena y posiciona en la tabla todos los datos recibidos de la base de datos
-    public void addTableElement(String nombre, int cantidad, float precio){
-         String row[] = {nombre,String.valueOf(cantidad),String.valueOf(precio)};
-         cajatabla.addRow(row);
+    public void guardardatos(String nombre, int cantidad, float precio){
+          this.setCantidad(cantidad);
+          this.setNombre(nombre);
+          this.setPrecio(precio);
     }
-
+    
+    public void agregar(String nombre, int cantidad, float precio){
+        
+        
+        model.addRow(new Object[]{nombre, cantidad, precio});
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -59,36 +74,29 @@ public class Menu extends javax.swing.JFrame {
         btncerrarorden = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtprecio = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblcambiosmenu = new javax.swing.JTable();
-        btnmodificarplatillo = new javax.swing.JButton();
-        btnmodificarmDish = new javax.swing.JButton();
-        btnmodificarpostres = new javax.swing.JButton();
-        btnmodificarbebidas = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblordenes = new javax.swing.JTable();
-        btncancelarorden = new javax.swing.JButton();
-        btncerrar = new javax.swing.JButton();
-        btnfinalizarorden = new javax.swing.JButton();
+        confirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tblcaja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "elemento", "cantidad", "precio"
             }
         ));
         jScrollPane2.setViewportView(tblcaja);
 
         btneliminarelemento.setText("quitar elemento");
+        btneliminarelemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarelementoActionPerformed(evt);
+            }
+        });
 
         btnanadirelemento.setText("añadir elemento");
         btnanadirelemento.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +119,13 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        confirmar.setText("confirmar elemento");
+        confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -128,7 +143,8 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtprecio))
-                    .addComponent(btnanadirelemento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnanadirelemento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(confirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -146,6 +162,8 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(btnlimpiarorden)
                         .addGap(18, 18, 18)
                         .addComponent(btncerrarorden)
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -155,111 +173,6 @@ public class Menu extends javax.swing.JFrame {
         );
 
         jTabbedPane3.addTab("caja", jPanel4);
-
-        tblcambiosmenu.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(tblcambiosmenu);
-
-        btnmodificarplatillo.setText("Modificar Platillos");
-
-        btnmodificarmDish.setText("Modificar Plato fuerte");
-
-        btnmodificarpostres.setText("Modificar Postre");
-
-        btnmodificarbebidas.setText("Modificar Bebidas");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnmodificarmDish, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(btnmodificarbebidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnmodificarpostres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnmodificarplatillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnmodificarplatillo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnmodificarmDish)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnmodificarpostres)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnmodificarbebidas))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("menu", jPanel5);
-
-        tblordenes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane4.setViewportView(tblordenes);
-
-        btncancelarorden.setText("Cancelar Orden");
-
-        btncerrar.setText("Hacer corte");
-
-        btnfinalizarorden.setText("Cerrar Orden");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btncerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnfinalizarorden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btncancelarorden, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(btncancelarorden)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnfinalizarorden)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btncerrar))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane3.addTab("ordenes", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -289,6 +202,14 @@ public class Menu extends javax.swing.JFrame {
         AgregaElemento agregaelemento = new AgregaElemento();
         agregaelemento.setVisible(true);
     }//GEN-LAST:event_btnanadirelementoActionPerformed
+
+    private void btneliminarelementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarelementoActionPerformed
+        
+    }//GEN-LAST:event_btneliminarelementoActionPerformed
+
+    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
+
+    }//GEN-LAST:event_confirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,28 +248,16 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnanadirelemento;
-    private javax.swing.JButton btncancelarorden;
-    private javax.swing.JButton btncerrar;
     private javax.swing.JButton btncerrarorden;
     private javax.swing.JButton btneliminarelemento;
-    private javax.swing.JButton btnfinalizarorden;
     private javax.swing.JButton btnlimpiarorden;
-    private javax.swing.JButton btnmodificarbebidas;
     private javax.swing.JButton btnmodificarelemento;
-    private javax.swing.JButton btnmodificarmDish;
-    private javax.swing.JButton btnmodificarplatillo;
-    private javax.swing.JButton btnmodificarpostres;
+    private javax.swing.JButton confirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable tblcaja;
-    private javax.swing.JTable tblcambiosmenu;
-    private javax.swing.JTable tblordenes;
     private javax.swing.JTextField txtprecio;
     // End of variables declaration//GEN-END:variables
 }
