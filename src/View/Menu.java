@@ -4,7 +4,6 @@
  */
 package View;
 
-import View.Caja.AgregaElemento;
 import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
@@ -44,7 +43,7 @@ public class Menu extends javax.swing.JFrame {
         String cabecera[]={"nombre","cantidad","precio"};
         String datos[][]={};
         model = new DefaultTableModel(datos,cabecera);
-        tblcaja.setModel(model);
+        JtblCaja.setModel(model);
     }
     
     public void guardardatos(String nombre, int cantidad, float precio){
@@ -66,19 +65,18 @@ public class Menu extends javax.swing.JFrame {
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblcaja = new javax.swing.JTable();
-        btneliminarelemento = new javax.swing.JButton();
-        btnanadirelemento = new javax.swing.JButton();
-        btnmodificarelemento = new javax.swing.JButton();
-        btnlimpiarorden = new javax.swing.JButton();
-        btncerrarorden = new javax.swing.JButton();
+        JtblCaja = new javax.swing.JTable();
+        btnQuitar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txtprecio = new javax.swing.JTextField();
-        confirmar = new javax.swing.JButton();
+        txtPrecio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblcaja.setModel(new javax.swing.table.DefaultTableModel(
+        JtblCaja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -89,40 +87,33 @@ public class Menu extends javax.swing.JFrame {
                 "elemento", "cantidad", "precio"
             }
         ));
-        jScrollPane2.setViewportView(tblcaja);
+        jScrollPane2.setViewportView(JtblCaja);
 
-        btneliminarelemento.setText("quitar elemento");
-        btneliminarelemento.addActionListener(new java.awt.event.ActionListener() {
+        btnQuitar.setText("quitar elemento");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarelementoActionPerformed(evt);
+                btnQuitarActionPerformed(evt);
             }
         });
 
-        btnanadirelemento.setText("añadir elemento");
-        btnanadirelemento.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("añadir elemento");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnanadirelementoActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
-        btnmodificarelemento.setText("modificar cantidad");
+        btnModificar.setText("modificar cantidad");
 
-        btnlimpiarorden.setText("limpiar orden");
+        btnLimpiar.setText("limpiar orden");
 
-        btncerrarorden.setText("Cerrar Orden");
+        btnCerrar.setText("Cerrar Orden");
 
         jLabel1.setText("total");
 
-        txtprecio.addActionListener(new java.awt.event.ActionListener() {
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtprecioActionPerformed(evt);
-            }
-        });
-
-        confirmar.setText("confirmar elemento");
-        confirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmarActionPerformed(evt);
+                txtPrecioActionPerformed(evt);
             }
         });
 
@@ -135,16 +126,15 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnmodificarelemento, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(btnlimpiarorden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btneliminarelemento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btncerrarorden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtprecio))
-                    .addComponent(btnanadirelemento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(confirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtPrecio))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -153,21 +143,19 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnanadirelemento)
+                        .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
-                        .addComponent(btneliminarelemento)
+                        .addComponent(btnQuitar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnmodificarelemento)
+                        .addComponent(btnModificar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnlimpiarorden)
+                        .addComponent(btnLimpiar)
                         .addGap(18, 18, 18)
-                        .addComponent(btncerrarorden)
-                        .addGap(18, 18, 18)
-                        .addComponent(confirmar)
+                        .addComponent(btnCerrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -194,22 +182,17 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtprecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecioActionPerformed
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
 
-    }//GEN-LAST:event_txtprecioActionPerformed
+    }//GEN-LAST:event_txtPrecioActionPerformed
 
-    private void btnanadirelementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnanadirelementoActionPerformed
-        AgregaElemento agregaelemento = new AgregaElemento();
-        agregaelemento.setVisible(true);
-    }//GEN-LAST:event_btnanadirelementoActionPerformed
-
-    private void btneliminarelementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarelementoActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
-    }//GEN-LAST:event_btneliminarelementoActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
-
-    }//GEN-LAST:event_confirmarActionPerformed
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        
+    }//GEN-LAST:event_btnQuitarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,17 +230,16 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnanadirelemento;
-    private javax.swing.JButton btncerrarorden;
-    private javax.swing.JButton btneliminarelemento;
-    private javax.swing.JButton btnlimpiarorden;
-    private javax.swing.JButton btnmodificarelemento;
-    private javax.swing.JButton confirmar;
+    private javax.swing.JTable JtblCaja;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnQuitar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTable tblcaja;
-    private javax.swing.JTextField txtprecio;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }
