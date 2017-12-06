@@ -40,7 +40,7 @@ public class AgregaElemento extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar en");
 
-        cbxTablas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxTablas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Platillo", "bebida", "plato fuerte", "postre" }));
 
         jLabel2.setText("Nombre del Producto");
 
