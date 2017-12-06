@@ -127,17 +127,16 @@ public class AgregaElemento extends javax.swing.JFrame {
         caja.setCantidad(Integer.parseInt(txtcantidad.getText()));
         caja.setBase(String.valueOf(cbxTablas.getSelectedItem()));
         
+        //pruebas para ver que todo este en orden
         //si no me equivoco cualquier opcion seleccionada debe lanzar error, elemento no agregado
-        System.out.println(caja.getBase());
-        System.out.println(caja.getNombre());
-        System.out.println(caja.getCantidad());
-        System.out.println(caja.getIdbase());
+        //System.out.println(caja.getBase());
+        //System.out.println(caja.getNombre());
+        //System.out.println(caja.getCantidad());
+        //System.out.println(caja.getIdbase());
         
         query.addfila(caja.getNombre(), caja.getBase(), caja.getCantidad());
         
-        //pruebas para ver que todo este en orden
-        
-        
+        this.dispose();
     }//GEN-LAST:event_btnagregarordenActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed

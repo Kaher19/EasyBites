@@ -8,19 +8,18 @@ import View.Caja.AgregaElemento;
 import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
+    DefaultTableModel cajatabla;
+    DefaultTableModel menutabla;
+    DefaultTableModel ordentabla;
     
     public Menu() {
         initComponents();
         
         txtprecio.setEditable(false);
         
-        DefaultTableModel cajatabla;
-        DefaultTableModel menutabla;
-        DefaultTableModel ordentabla;
-        DefaultTableModel finanzatabla;
         
         //carga de modelos de la primera tabla
-        String ctabla[]={"id","platillo","cantidad","precio"};
+        String ctabla[]={"platillo","cantidad","precio"};
         String cdatos[][]={};
         cajatabla = new DefaultTableModel(cdatos,ctabla);
         tblcaja.setModel(cajatabla);
@@ -36,12 +35,13 @@ public class Menu extends javax.swing.JFrame {
         String odatos[][]={};
         ordentabla = new DefaultTableModel(odatos,otabla);
         tblordenes.setModel(ordentabla);
-        
-        //carga del cuarto modelo de tabla
-        String ftabla[]={"dia","total"};
-        String fdatos[][]={};
-        finanzatabla= new DefaultTableModel(fdatos,ftabla);
-        tblhistorial.setModel(finanzatabla);
+       
+    }
+    
+    //metodo que almacena y posiciona en la tabla todos los datos recibidos de la base de datos
+    public void addTableElement(String nombre, int cantidad, float precio){
+         String row[] = {nombre,String.valueOf(cantidad),String.valueOf(precio)};
+         cajatabla.addRow(row);
     }
 
     @SuppressWarnings("unchecked")
