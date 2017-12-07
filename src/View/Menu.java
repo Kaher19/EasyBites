@@ -242,17 +242,26 @@ public class Menu extends javax.swing.JFrame {
         ConstructorCaja caja = new ConstructorCaja();
         caja.setElemento(txtNombre.getText());
         caja.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        caja.setTabla(String.valueOf(cbxTabla.getSelectedItem()));
         
-        agregarCaja(caja.getElemento(), caja.getCantidad());
+        agregarCaja(caja.getElemento(), caja.getCantidad(),caja.getTabla() );
     }//GEN-LAST:event_btnAgregarActionPerformed
    
-    void agregarCaja(String nombre, int cantidad){
+    void agregarCaja(String nombre, int cantidad, String tabla){
         ConstructorCaja caja = new ConstructorCaja();
-        System.out.println(nombre);
-        System.out.println(cantidad);
-        //String nombre;
-        //int cantidad;
-        //String tabla;
+        
+        if("platillos".equals(tabla)){
+            System.out.println("aqui hay platillos");
+        }
+        if("bebidas".equals(tabla)){
+            System.out.println("aqui hay bebidas");
+        }
+        if("plato fuerte".equals(tabla)){
+            System.out.println("aqui hay plato fuerte");
+        }
+        if("postres".equals(tabla)){
+            System.out.println("aqui hay postres");
+        }
         
         
         //se obtiene el nombre

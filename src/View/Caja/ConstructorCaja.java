@@ -9,6 +9,15 @@ public class ConstructorCaja {
     private String elemento;
     private int cantidad;
     private float precio;
+    private String tabla;
+
+    public String getTabla() {
+        return tabla;
+    }
+
+    public void setTabla(String tabla) {
+        this.tabla = tabla;
+    }
 
     
     //incluir setters y getters
