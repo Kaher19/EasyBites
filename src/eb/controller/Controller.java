@@ -20,7 +20,7 @@ public class Controller {
         return header;
     }
     
-    public String[][] getAllTypeOfSauces (String tipo) throws SQLException{
+    public String[][] getThisTypeOfSauces (String tipo) throws SQLException{
         String[][] table;
         if(tipo != null){
             DBQuery query = new DBQuery();
