@@ -8,6 +8,7 @@ package View;
 
 
 //inserts necesarios del java
+import View.Caja.ConstructorCaja;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
@@ -16,10 +17,6 @@ import javax.swing.table.DefaultTableModel;
 public class Menu extends javax.swing.JFrame {
     //creacion del objeto tabla
     DefaultTableModel model = new DefaultTableModel();
-    
-    
-    
-    
     
     public Menu() {
         initComponents();
@@ -34,41 +31,7 @@ public class Menu extends javax.swing.JFrame {
         model = new DefaultTableModel(datos,cabecera);
         JtblCaja.setModel(model);
     }
-    
-    void agregarCaja(){
-        String nombre;
-        int cantidad;
-        String tabla;
-        
-        nombre = txtNombre.getText();
-        cantidad = Integer.parseInt(txtCantidad.getText());
-        tabla = String.valueOf(cbxTabla.getSelectedItem());
-        
-        model.addRow(new Object[]{nombre, cantidad, tabla});
-    }
-    
-    //proceso de eliminacion de datos dentro de la caja
-    void eliminarCaja(){
-        int fila=JtblCaja.getSelectedRow();
-        model.removeRow(fila);
-    }
-    
-    //proceso de edicion de datos dentro de la caja
-    void editarCaja(){
-        int fila = JtblCaja.getSelectedRow();
-        System.out.println(fila);
-        model.setValueAt(txtCantidad.getText(), fila, 1);
-    }
-    
-    //proceso de limpieza de caja
-    void limpiarCaja(){
-        int filas = model.getRowCount();
-        
-        for(int i=0; i<filas;i++){
-            model.removeRow(0);
-        }
-    }
-    
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -275,15 +238,42 @@ public class Menu extends javax.swing.JFrame {
     
     //acciones del boton agregar elemento
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        agregarCaja();
+        //agregar constructores y obtener texto para la posterior busqueda en la base de datos
+        ConstructorCaja caja = new ConstructorCaja();
+        caja.setElemento(txtNombre.getText());
+        caja.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        
+        agregarCaja(caja.getElemento(), caja.getCantidad());
     }//GEN-LAST:event_btnAgregarActionPerformed
-
+   
+    void agregarCaja(String nombre, int cantidad){
+        ConstructorCaja caja = new ConstructorCaja();
+        System.out.println(nombre);
+        System.out.println(cantidad);
+        //String nombre;
+        //int cantidad;
+        //String tabla;
+        
+        
+        //se obtiene el nombre
+        //nombre = txtNombre.getText();
+        //cantidad = Integer.parseInt(txtCantidad.getText());
+        //tabla = String.valueOf(cbxTabla.getSelectedItem());
+        
+        //model.addRow(new Object[]{nombre, cantidad, tabla});
+    }
     
     //acciones realizadas por el boton de quitar elemento
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         eliminarCaja();
     }//GEN-LAST:event_btnQuitarActionPerformed
 
+    //proceso de eliminacion de datos dentro de la caja
+    void eliminarCaja(){
+        int fila=JtblCaja.getSelectedRow();
+        model.removeRow(fila);
+    }
+    
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
         
     }//GEN-LAST:event_txtCantidadActionPerformed
@@ -292,10 +282,25 @@ public class Menu extends javax.swing.JFrame {
         limpiarCaja();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    //proceso de limpieza de caja
+    void limpiarCaja(){
+        int filas = model.getRowCount();
+        
+        for(int i=0; i<filas;i++){
+            model.removeRow(0);
+        }
+    }
+    
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         editarCaja();
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    //proceso de edicion de datos dentro de la caja
+    void editarCaja(){
+        int fila = JtblCaja.getSelectedRow();
+        System.out.println(fila);
+        model.setValueAt(txtCantidad.getText(), fila, 1);
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
