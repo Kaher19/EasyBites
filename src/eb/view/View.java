@@ -5,16 +5,31 @@
  */
 package eb.view;
 
+import eb.controller.Controller;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Kirbey
  */
 public class View extends javax.swing.JFrame {
+    private final DefaultTableModel model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column < 0;
+            }
+        };
+    
 private final ImageIcon ebIcon = new ImageIcon("src/eb/images/eb_Icon.png");
 private final Image icon = ebIcon.getImage();
+
+Controller control = new Controller();
 
     /**
      * Creates new form Model
@@ -25,6 +40,7 @@ private final Image icon = ebIcon.getImage();
         this.setLocationRelativeTo(null);
         this.setTitle("EasyBites");
         this.setIconImage(icon);
+        this.beginTable();
     }
 
     /**
@@ -39,16 +55,15 @@ private final Image icon = ebIcon.getImage();
         tabWindow = new javax.swing.JFrame();
         twCancelBTN = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        mwScrollPanel = new javax.swing.JScrollPane();
+        twTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        mwEasyBitesLabel = new java.awt.Label();
         mwPanel = new javax.swing.JPanel();
         mwEntradasBTN = new javax.swing.JButton();
         mwPostresBTN = new javax.swing.JButton();
         mwPlatosFuertesBTN = new javax.swing.JButton();
         mwBebidasBTN = new javax.swing.JButton();
-        mwEasyBitesLabel = new java.awt.Label();
 
-        tabWindow.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         tabWindow.setTitle("Seleccionar Platillos");
         tabWindow.setIconImage(getIconImage());
         tabWindow.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -61,37 +76,37 @@ private final Image icon = ebIcon.getImage();
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        twTable.setModel(model);
+        jScrollPane1.setViewportView(twTable);
+
+        jLabel1.setFont(new java.awt.Font("MV Boli", 0, 48)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Seleccione el producto");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout tabWindowLayout = new javax.swing.GroupLayout(tabWindow.getContentPane());
         tabWindow.getContentPane().setLayout(tabWindowLayout);
         tabWindowLayout.setHorizontalGroup(
             tabWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(twCancelBTN)
-                .addContainerGap())
             .addGroup(tabWindowLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
-                .addGap(305, 305, 305))
+                .addGroup(tabWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(twCancelBTN))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(tabWindowLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                        .addGap(280, 280, 280)))
+                .addContainerGap())
         );
         tabWindowLayout.setVerticalGroup(
             tabWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(98, 98, 98)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                 .addGap(46, 46, 46)
                 .addComponent(twCancelBTN)
                 .addContainerGap())
@@ -104,6 +119,11 @@ private final Image icon = ebIcon.getImage();
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
+        mwEasyBitesLabel.setAlignment(java.awt.Label.CENTER);
+        mwEasyBitesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        mwEasyBitesLabel.setFont(new java.awt.Font("MV Boli", 1, 48)); // NOI18N
+        mwEasyBitesLabel.setText("EasyBites");
+
         mwPanel.setLayout(new java.awt.GridLayout(2, 3));
 
         mwEntradasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
@@ -112,14 +132,26 @@ private final Image icon = ebIcon.getImage();
         mwEntradasBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwEntradasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwEntradasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mwEntradasBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mwEntradasBTNActionPerformed(evt);
+            }
+        });
         mwPanel.add(mwEntradasBTN);
 
         mwPostresBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwPostresBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Dessert.png"))); // NOI18N
         mwPostresBTN.setText("Postres");
         mwPostresBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        mwPostresBTN.setDisabledIcon(null);
+        mwPostresBTN.setDisabledSelectedIcon(null);
         mwPostresBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwPostresBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mwPostresBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mwPostresBTNActionPerformed(evt);
+            }
+        });
         mwPanel.add(mwPostresBTN);
 
         mwPlatosFuertesBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
@@ -128,6 +160,11 @@ private final Image icon = ebIcon.getImage();
         mwPlatosFuertesBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwPlatosFuertesBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwPlatosFuertesBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mwPlatosFuertesBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mwPlatosFuertesBTNActionPerformed(evt);
+            }
+        });
         mwPanel.add(mwPlatosFuertesBTN);
 
         mwBebidasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
@@ -136,36 +173,38 @@ private final Image icon = ebIcon.getImage();
         mwBebidasBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwBebidasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwBebidasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mwBebidasBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mwBebidasBTNActionPerformed(evt);
+            }
+        });
         mwPanel.add(mwBebidasBTN);
-
-        mwScrollPanel.setViewportView(mwPanel);
-
-        mwEasyBitesLabel.setAlignment(java.awt.Label.CENTER);
-        mwEasyBitesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        mwEasyBitesLabel.setFont(new java.awt.Font("MV Boli", 1, 48)); // NOI18N
-        mwEasyBitesLabel.setText("EasyBites");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mwScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(277, 277, 277)
-                .addComponent(mwEasyBitesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(285, 285, 285))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(248, 248, 248)
+                .addComponent(mwEasyBitesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                .addGap(236, 236, 236))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(mwPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(mwEasyBitesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(33, 33, 33)
-                .addComponent(mwScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(508, 508, 508))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(136, Short.MAX_VALUE)
+                    .addComponent(mwPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         pack();
@@ -176,18 +215,84 @@ private final Image icon = ebIcon.getImage();
         tabWindow.setVisible(false);
     }//GEN-LAST:event_twCancelBTNActionPerformed
 
+    private void mwEntradasBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwEntradasBTNActionPerformed
+        // TODO add your handling code here:
+        this.beginTableWindow();
+        this.loadTableData(this.loadTypeOfSauce("pe"));
+    }//GEN-LAST:event_mwEntradasBTNActionPerformed
+
+    private void mwPostresBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwPostresBTNActionPerformed
+        // TODO add your handling code here:
+        this.beginTableWindow();
+        this.loadTableData(this.loadTypeOfSauce("pp"));
+    }//GEN-LAST:event_mwPostresBTNActionPerformed
+
+    private void mwPlatosFuertesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwPlatosFuertesBTNActionPerformed
+        // TODO add your handling code here:
+        this.beginTableWindow();
+        this.loadTableData(this.loadTypeOfSauce("pf"));
+    }//GEN-LAST:event_mwPlatosFuertesBTNActionPerformed
+
+    private void mwBebidasBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwBebidasBTNActionPerformed
+        // TODO add your handling code here:
+        this.beginTableWindow();
+        this.loadTableData(this.loadTypeOfSauce("pb"));
+    }//GEN-LAST:event_mwBebidasBTNActionPerformed
+
+    /*
+    Funciones  creadas por mi
+    */
+    
+    //Este metodo carga los datos para la tabla
+    private void loadTableData(String[][] datos){
+        twTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        twTable.doLayout();
+        
+        //Función que rellena los datos de la tabla con los datos obtenidos
+        String[] line = new String[datos[0].length];
+        for (String[] dato : datos) {
+            for (int column = 0; column<line.length; column++) {
+                line[column] = "" + dato[column];
+            }
+            model.addRow(line);
+        }
+    }
+    
+    //Método que inicializa la ventana tableWindow
+    private void beginTableWindow(){
+        tabWindow.setVisible(true);
+        tabWindow.setLocationRelativeTo(null);
+    }
+    
+    //Método que inicializa la tabla
+    private void beginTable(){
+        String platillos[] = control.getHeader();
+        for (String platillo : platillos) {
+            model.addColumn(platillo);
+        }
+    }
+    
+    private String[][] loadTypeOfSauce(String type){
+        String[][] table = null;
+        try {
+            table = control.getAllTypeOfSauces(type);
+        } catch (SQLException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return table;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton mwBebidasBTN;
     private java.awt.Label mwEasyBitesLabel;
     private javax.swing.JButton mwEntradasBTN;
     private javax.swing.JPanel mwPanel;
     private javax.swing.JButton mwPlatosFuertesBTN;
     private javax.swing.JButton mwPostresBTN;
-    private javax.swing.JScrollPane mwScrollPanel;
     private javax.swing.JFrame tabWindow;
     private javax.swing.JButton twCancelBTN;
+    private javax.swing.JTable twTable;
     // End of variables declaration//GEN-END:variables
 }
