@@ -38,7 +38,6 @@ public class DBConnection {
                     +"://" +urlInfo.serverName +":" +urlInfo.serverPort + "/" +
                     urlInfo.database, props);
         }
-        System.out.println("Connection established");
         return connection;
     }
     

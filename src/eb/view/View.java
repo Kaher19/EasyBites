@@ -54,15 +54,23 @@ Controller control = new Controller();
 
         tabWindow = new javax.swing.JFrame();
         twCancelBTN = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        twTableScrollPane = new javax.swing.JScrollPane();
         twTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        twSelecciónPlatilloLabel = new javax.swing.JLabel();
         mwEasyBitesLabel = new java.awt.Label();
-        mwPanel = new javax.swing.JPanel();
+        mwSeleccionProductosTPane = new javax.swing.JTabbedPane();
+        mwProductosPane = new javax.swing.JPanel();
         mwEntradasBTN = new javax.swing.JButton();
         mwPostresBTN = new javax.swing.JButton();
         mwPlatosFuertesBTN = new javax.swing.JButton();
         mwBebidasBTN = new javax.swing.JButton();
+        mwAdministracionPane = new javax.swing.JPanel();
+        mwAgregarPlatilloLabel = new javax.swing.JLabel();
+        mwTipoPlatilloCB = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        mwAgregarPlatilloLabel1 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        mwAgregarPlatilloLabel2 = new javax.swing.JLabel();
 
         tabWindow.setTitle("Seleccionar Platillos");
         tabWindow.setIconImage(getIconImage());
@@ -77,12 +85,12 @@ Controller control = new Controller();
         });
 
         twTable.setModel(model);
-        jScrollPane1.setViewportView(twTable);
+        twTableScrollPane.setViewportView(twTable);
 
-        jLabel1.setFont(new java.awt.Font("MV Boli", 0, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Seleccione el producto");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        twSelecciónPlatilloLabel.setFont(new java.awt.Font("MV Boli", 0, 48)); // NOI18N
+        twSelecciónPlatilloLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        twSelecciónPlatilloLabel.setText("Seleccione platillo o bebida");
+        twSelecciónPlatilloLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout tabWindowLayout = new javax.swing.GroupLayout(tabWindow.getContentPane());
         tabWindow.getContentPane().setLayout(tabWindowLayout);
@@ -94,9 +102,9 @@ Controller control = new Controller();
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(twCancelBTN))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(twSelecciónPlatilloLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(tabWindowLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                        .addComponent(twTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                         .addGap(280, 280, 280)))
                 .addContainerGap())
         );
@@ -104,9 +112,9 @@ Controller control = new Controller();
             tabWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(twSelecciónPlatilloLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(98, 98, 98)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addComponent(twTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                 .addGap(46, 46, 46)
                 .addComponent(twCancelBTN)
                 .addContainerGap())
@@ -124,7 +132,9 @@ Controller control = new Controller();
         mwEasyBitesLabel.setFont(new java.awt.Font("MV Boli", 1, 48)); // NOI18N
         mwEasyBitesLabel.setText("EasyBites");
 
-        mwPanel.setLayout(new java.awt.GridLayout(2, 3));
+        mwSeleccionProductosTPane.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
+
+        mwProductosPane.setLayout(new java.awt.GridLayout(2, 3));
 
         mwEntradasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwEntradasBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Entrada.png"))); // NOI18N
@@ -137,7 +147,7 @@ Controller control = new Controller();
                 mwEntradasBTNActionPerformed(evt);
             }
         });
-        mwPanel.add(mwEntradasBTN);
+        mwProductosPane.add(mwEntradasBTN);
 
         mwPostresBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwPostresBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Dessert.png"))); // NOI18N
@@ -152,7 +162,7 @@ Controller control = new Controller();
                 mwPostresBTNActionPerformed(evt);
             }
         });
-        mwPanel.add(mwPostresBTN);
+        mwProductosPane.add(mwPostresBTN);
 
         mwPlatosFuertesBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwPlatosFuertesBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_PlatoFuerte.png"))); // NOI18N
@@ -165,7 +175,7 @@ Controller control = new Controller();
                 mwPlatosFuertesBTNActionPerformed(evt);
             }
         });
-        mwPanel.add(mwPlatosFuertesBTN);
+        mwProductosPane.add(mwPlatosFuertesBTN);
 
         mwBebidasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwBebidasBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Bebidas.png"))); // NOI18N
@@ -178,33 +188,99 @@ Controller control = new Controller();
                 mwBebidasBTNActionPerformed(evt);
             }
         });
-        mwPanel.add(mwBebidasBTN);
+        mwProductosPane.add(mwBebidasBTN);
+
+        mwSeleccionProductosTPane.addTab("Productos", mwProductosPane);
+
+        mwAgregarPlatilloLabel.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        mwAgregarPlatilloLabel.setText("Agregar nuevo platillo o bebida");
+
+        mwTipoPlatilloCB.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
+        mwTipoPlatilloCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Plato Fuerte", "Postre", "Bebida" }));
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jTextField1.setText("Nuevo nombre");
+
+        mwAgregarPlatilloLabel1.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        mwAgregarPlatilloLabel1.setText("Precio del platillo");
+
+        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jTextField2.setText("000.0");
+
+        mwAgregarPlatilloLabel2.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        mwAgregarPlatilloLabel2.setText("Nombre del platillo");
+
+        javax.swing.GroupLayout mwAdministracionPaneLayout = new javax.swing.GroupLayout(mwAdministracionPane);
+        mwAdministracionPane.setLayout(mwAdministracionPaneLayout);
+        mwAdministracionPaneLayout.setHorizontalGroup(
+            mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                        .addComponent(mwAgregarPlatilloLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77)
+                        .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                                .addComponent(mwAgregarPlatilloLabel1)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                                .addComponent(mwTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(133, 133, 133))))))
+            .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(mwAgregarPlatilloLabel2)
+                    .addContainerGap(607, Short.MAX_VALUE)))
+        );
+        mwAdministracionPaneLayout.setVerticalGroup(
+            mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mwAgregarPlatilloLabel)
+                .addGap(27, 27, 27)
+                .addComponent(mwAgregarPlatilloLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mwTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1)
+                    .addComponent(jTextField2))
+                .addContainerGap(242, Short.MAX_VALUE))
+            .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                    .addGap(62, 62, 62)
+                    .addComponent(mwAgregarPlatilloLabel2)
+                    .addContainerGap(273, Short.MAX_VALUE)))
+        );
+
+        mwSeleccionProductosTPane.addTab("Administración", mwAdministracionPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(248, 248, 248)
-                .addComponent(mwEasyBitesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                .addGap(236, 236, 236))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(mwPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addContainerGap()
+                .addComponent(mwSeleccionProductosTPane)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(279, 279, 279)
+                .addComponent(mwEasyBitesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(263, 263, 263))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mwEasyBitesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(508, 508, 508))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(136, Short.MAX_VALUE)
-                    .addComponent(mwPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mwSeleccionProductosTPane)
+                .addContainerGap())
         );
 
         pack();
@@ -218,24 +294,28 @@ Controller control = new Controller();
     private void mwEntradasBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwEntradasBTNActionPerformed
         // TODO add your handling code here:
         this.beginTableWindow();
+        this.limpiarTabla();
         this.loadTableData(this.loadTypeOfSauce("pe"));
     }//GEN-LAST:event_mwEntradasBTNActionPerformed
 
     private void mwPostresBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwPostresBTNActionPerformed
         // TODO add your handling code here:
         this.beginTableWindow();
+        this.limpiarTabla();
         this.loadTableData(this.loadTypeOfSauce("pp"));
     }//GEN-LAST:event_mwPostresBTNActionPerformed
 
     private void mwPlatosFuertesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwPlatosFuertesBTNActionPerformed
         // TODO add your handling code here:
         this.beginTableWindow();
+        this.limpiarTabla();
         this.loadTableData(this.loadTypeOfSauce("pf"));
     }//GEN-LAST:event_mwPlatosFuertesBTNActionPerformed
 
     private void mwBebidasBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwBebidasBTNActionPerformed
         // TODO add your handling code here:
         this.beginTableWindow();
+        this.limpiarTabla();
         this.loadTableData(this.loadTypeOfSauce("pb"));
     }//GEN-LAST:event_mwBebidasBTNActionPerformed
 
@@ -281,18 +361,36 @@ Controller control = new Controller();
         }
         return table;
     }
+    
+    private void limpiarTabla(){
+        int tableTotalRow = twTable.getRowCount();
+        if (tableTotalRow != 0){ 
+                //Una vez obtenido el table limpiamos la tabla
+                for(int i = tableTotalRow-1; i >= 0; i--){
+                    model.removeRow(i);
+                }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPanel mwAdministracionPane;
+    private javax.swing.JLabel mwAgregarPlatilloLabel;
+    private javax.swing.JLabel mwAgregarPlatilloLabel1;
+    private javax.swing.JLabel mwAgregarPlatilloLabel2;
     private javax.swing.JButton mwBebidasBTN;
     private java.awt.Label mwEasyBitesLabel;
     private javax.swing.JButton mwEntradasBTN;
-    private javax.swing.JPanel mwPanel;
     private javax.swing.JButton mwPlatosFuertesBTN;
     private javax.swing.JButton mwPostresBTN;
+    private javax.swing.JPanel mwProductosPane;
+    private javax.swing.JTabbedPane mwSeleccionProductosTPane;
+    private javax.swing.JComboBox<String> mwTipoPlatilloCB;
     private javax.swing.JFrame tabWindow;
     private javax.swing.JButton twCancelBTN;
+    private javax.swing.JLabel twSelecciónPlatilloLabel;
     private javax.swing.JTable twTable;
+    private javax.swing.JScrollPane twTableScrollPane;
     // End of variables declaration//GEN-END:variables
 }

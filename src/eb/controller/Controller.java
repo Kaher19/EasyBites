@@ -6,8 +6,6 @@
 package eb.controller;
 
 import eb.DB.DBQuery;
-import eb.model.Model;
-import eb.view.View;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -29,7 +27,6 @@ public class Controller {
             ResultSet rSet;
             int rowSize;
             rSet=query.getPlatillosPorTipo(tipo);
-            System.out.println("Esto se imprime: " +rSet);
 
             //Comprobamos si la tabla tiene datos
             if(rSet.next()){
