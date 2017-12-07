@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -65,17 +66,17 @@ Controller control = new Controller();
         mwPlatosFuertesBTN = new javax.swing.JButton();
         mwBebidasBTN = new javax.swing.JButton();
         mwAdministracionPane = new javax.swing.JPanel();
-        mwAgregarPlatilloLabel = new javax.swing.JLabel();
-        mwTipoPlatilloCB = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        mwAgregarPlatilloLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        mwAgregarPlatilloLabel2 = new javax.swing.JLabel();
+        atAgregarPlatilloLabel = new javax.swing.JLabel();
+        atTipoPlatilloCB = new javax.swing.JComboBox<>();
+        atAreaNombreTF = new javax.swing.JTextField();
+        mwPrecioPlatilloLabel = new javax.swing.JLabel();
+        atPrecioPlatilloTF = new javax.swing.JTextField();
+        atAgregarPlatilloLabel2 = new javax.swing.JLabel();
+        atAgregarBTN = new javax.swing.JButton();
 
         tabWindow.setTitle("Seleccionar Platillos");
         tabWindow.setIconImage(getIconImage());
         tabWindow.setMinimumSize(new java.awt.Dimension(800, 600));
-        tabWindow.setPreferredSize(new java.awt.Dimension(800, 600));
 
         twCancelBTN.setText("Cancelar");
         twCancelBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -123,9 +124,7 @@ Controller control = new Controller();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(getIconImage());
-        setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         mwEasyBitesLabel.setAlignment(java.awt.Label.CENTER);
         mwEasyBitesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -192,23 +191,30 @@ Controller control = new Controller();
 
         mwSeleccionProductosTPane.addTab("Productos", mwProductosPane);
 
-        mwAgregarPlatilloLabel.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
-        mwAgregarPlatilloLabel.setText("Agregar nuevo platillo o bebida");
+        atAgregarPlatilloLabel.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        atAgregarPlatilloLabel.setText("Agregar nuevo platillo o bebida");
 
-        mwTipoPlatilloCB.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
-        mwTipoPlatilloCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Plato Fuerte", "Postre", "Bebida" }));
+        atTipoPlatilloCB.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
+        atTipoPlatilloCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Plato Fuerte", "Postre", "Bebida" }));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jTextField1.setText("Nuevo nombre");
+        atAreaNombreTF.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        atAreaNombreTF.setText("Nuevo nombre");
 
-        mwAgregarPlatilloLabel1.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
-        mwAgregarPlatilloLabel1.setText("Precio del platillo");
+        mwPrecioPlatilloLabel.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        mwPrecioPlatilloLabel.setText("Precio del platillo");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jTextField2.setText("000.0");
+        atPrecioPlatilloTF.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        atPrecioPlatilloTF.setText("000.0");
 
-        mwAgregarPlatilloLabel2.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
-        mwAgregarPlatilloLabel2.setText("Nombre del platillo");
+        atAgregarPlatilloLabel2.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
+        atAgregarPlatilloLabel2.setText("Nombre del platillo");
+
+        atAgregarBTN.setText("Agregar...");
+        atAgregarBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atAgregarBTNActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mwAdministracionPaneLayout = new javax.swing.GroupLayout(mwAdministracionPane);
         mwAdministracionPane.setLayout(mwAdministracionPaneLayout);
@@ -218,43 +224,48 @@ Controller control = new Controller();
                 .addContainerGap()
                 .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
-                        .addComponent(mwAgregarPlatilloLabel)
+                        .addComponent(atAgregarPlatilloLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(atAreaNombreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(77, 77, 77)
                         .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
-                                .addComponent(mwAgregarPlatilloLabel1)
+                                .addComponent(mwPrecioPlatilloLabel)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(atPrecioPlatilloTF, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                                .addComponent(mwTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(133, 133, 133))))))
+                                .addComponent(atTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(133, 133, 133))))
+                    .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
+                        .addComponent(atAgregarBTN)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addComponent(mwAgregarPlatilloLabel2)
+                    .addComponent(atAgregarPlatilloLabel2)
                     .addContainerGap(607, Short.MAX_VALUE)))
         );
         mwAdministracionPaneLayout.setVerticalGroup(
             mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mwAgregarPlatilloLabel)
+                .addComponent(atAgregarPlatilloLabel)
                 .addGap(27, 27, 27)
-                .addComponent(mwAgregarPlatilloLabel1)
+                .addComponent(mwPrecioPlatilloLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mwTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2))
-                .addContainerGap(242, Short.MAX_VALUE))
+                    .addComponent(atTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atAreaNombreTF)
+                    .addComponent(atPrecioPlatilloTF))
+                .addGap(18, 18, 18)
+                .addComponent(atAgregarBTN)
+                .addContainerGap(201, Short.MAX_VALUE))
             .addGroup(mwAdministracionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mwAdministracionPaneLayout.createSequentialGroup()
                     .addGap(62, 62, 62)
-                    .addComponent(mwAgregarPlatilloLabel2)
+                    .addComponent(atAgregarPlatilloLabel2)
                     .addContainerGap(273, Short.MAX_VALUE)))
         );
 
@@ -319,6 +330,35 @@ Controller control = new Controller();
         this.loadTableData(this.loadTypeOfSauce("pb"));
     }//GEN-LAST:event_mwBebidasBTNActionPerformed
 
+    private void atAgregarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atAgregarBTNActionPerformed
+        // TODO add your handling code here:
+        String saucer = atAreaNombreTF.getText();
+        String type = atTipoPlatilloCB.getSelectedItem().toString();
+        float precio = Float.parseFloat(atPrecioPlatilloTF.getText());
+        try {
+            if(control.existThisSaucer(saucer)==true){
+                JOptionPane.showMessageDialog(this, "El platillo " +saucer +
+                " ya existe", "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                switch(type){
+                    case "Entrada": type = "pe";
+                        break;
+                    case "Plato Fuerte": type = "pf";
+                        break;
+                    case "Postre": type = "pp";
+                        break;
+                    case "Bebida": type = "pb";
+                        break;    
+                }
+                control.addNewSaucer(type, saucer, precio);
+                JOptionPane.showMessageDialog(this, "El platillo " +saucer +
+                " se añadió exitosamente", "Hecho", JOptionPane.INFORMATION_MESSAGE);
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_atAgregarBTNActionPerformed
+
     /*
     Funciones  creadas por mi
     */
@@ -373,20 +413,21 @@ Controller control = new Controller();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton atAgregarBTN;
+    private javax.swing.JLabel atAgregarPlatilloLabel;
+    private javax.swing.JLabel atAgregarPlatilloLabel2;
+    private javax.swing.JTextField atAreaNombreTF;
+    private javax.swing.JTextField atPrecioPlatilloTF;
+    private javax.swing.JComboBox<String> atTipoPlatilloCB;
     private javax.swing.JPanel mwAdministracionPane;
-    private javax.swing.JLabel mwAgregarPlatilloLabel;
-    private javax.swing.JLabel mwAgregarPlatilloLabel1;
-    private javax.swing.JLabel mwAgregarPlatilloLabel2;
     private javax.swing.JButton mwBebidasBTN;
     private java.awt.Label mwEasyBitesLabel;
     private javax.swing.JButton mwEntradasBTN;
     private javax.swing.JButton mwPlatosFuertesBTN;
     private javax.swing.JButton mwPostresBTN;
+    private javax.swing.JLabel mwPrecioPlatilloLabel;
     private javax.swing.JPanel mwProductosPane;
     private javax.swing.JTabbedPane mwSeleccionProductosTPane;
-    private javax.swing.JComboBox<String> mwTipoPlatilloCB;
     private javax.swing.JFrame tabWindow;
     private javax.swing.JButton twCancelBTN;
     private javax.swing.JLabel twSelecciónPlatilloLabel;

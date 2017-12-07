@@ -73,4 +73,21 @@ public class DBQuery {
     public void closeDBQuery(){
         dbconnection.closeConnection();
     }
+    
+    public ResultSet getAllSaucers(String saucer){
+        String SQLquery =
+                "SELECT Platillo " +
+                "FROM platillos " +
+                "WHERE Platillo=\'" +saucer + "\' ";
+        try{
+        dbconnection = new DBConnection();
+        Connection connection = dbconnection.getConnection();
+        query = connection.createStatement();
+        resultset = query.executeQuery(SQLquery);
+        }
+        catch(SQLException | FileNotFoundException ex){
+            System.out.print(ex);
+        }
+        return resultset;
+    }
 }

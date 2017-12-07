@@ -52,4 +52,23 @@ public class Controller {
         return table;
     }
     
+    public void addNewSaucer(String type, String sauce, float precio){
+        DBQuery query = new DBQuery();
+        ResultSet rSet;
+        rSet=query.addNewSaucer(type, sauce, precio);
+    }
+    
+    public boolean existThisSaucer(String saucer) throws SQLException {
+        boolean exist = false;
+        DBQuery query = new DBQuery();
+        ResultSet rSet;
+        rSet=query.getAllSaucers(saucer);
+        
+        if(rSet.next()){
+            exist=true;
+        }
+        query.closeDBQuery();
+        rSet.close();
+        return exist;
+    }
 }
