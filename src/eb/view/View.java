@@ -357,6 +357,8 @@ Controller control = new Controller();
             } catch (SQLException ex) {
                 Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             }
+        atAreaNombreTF.setText("Nuevo nombre");
+        atPrecioPlatilloTF.setText("000.0");
     }//GEN-LAST:event_atAgregarBTNActionPerformed
 
     /*
