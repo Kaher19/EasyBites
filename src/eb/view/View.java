@@ -36,6 +36,10 @@ private final Image icon = ebIcon.getImage();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tabWindow = new javax.swing.JFrame();
+        twCancelBTN = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         mwScrollPanel = new javax.swing.JScrollPane();
         mwPanel = new javax.swing.JPanel();
         mwEntradasBTN = new javax.swing.JButton();
@@ -44,7 +48,57 @@ private final Image icon = ebIcon.getImage();
         mwBebidasBTN = new javax.swing.JButton();
         mwEasyBitesLabel = new java.awt.Label();
 
+        tabWindow.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        tabWindow.setTitle("Seleccionar Platillos");
+        tabWindow.setIconImage(getIconImage());
+        tabWindow.setMinimumSize(new java.awt.Dimension(800, 600));
+        tabWindow.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        twCancelBTN.setText("Cancelar");
+        twCancelBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                twCancelBTNActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout tabWindowLayout = new javax.swing.GroupLayout(tabWindow.getContentPane());
+        tabWindow.getContentPane().setLayout(tabWindowLayout);
+        tabWindowLayout.setHorizontalGroup(
+            tabWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(twCancelBTN)
+                .addContainerGap())
+            .addGroup(tabWindowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addGap(305, 305, 305))
+        );
+        tabWindowLayout.setVerticalGroup(
+            tabWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
+                .addComponent(twCancelBTN)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(getIconImage());
         setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -110,15 +164,22 @@ private final Image icon = ebIcon.getImage();
                 .addGap(24, 24, 24)
                 .addComponent(mwEasyBitesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(33, 33, 33)
-                .addComponent(mwScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addComponent(mwScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void twCancelBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twCancelBTNActionPerformed
+        // TODO add your handling code here:
+        tabWindow.setVisible(false);
+    }//GEN-LAST:event_twCancelBTNActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton mwBebidasBTN;
     private java.awt.Label mwEasyBitesLabel;
     private javax.swing.JButton mwEntradasBTN;
@@ -126,5 +187,7 @@ private final Image icon = ebIcon.getImage();
     private javax.swing.JButton mwPlatosFuertesBTN;
     private javax.swing.JButton mwPostresBTN;
     private javax.swing.JScrollPane mwScrollPanel;
+    private javax.swing.JFrame tabWindow;
+    private javax.swing.JButton twCancelBTN;
     // End of variables declaration//GEN-END:variables
 }
