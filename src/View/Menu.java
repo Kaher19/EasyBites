@@ -4,9 +4,6 @@
  */
 package View;
 
-//inserts hechos para llamar elementos del UI
-
-
 //inserts necesarios del java
 import View.Caja.ConstructorCaja;
 import java.awt.event.KeyAdapter;
