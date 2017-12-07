@@ -55,6 +55,7 @@ private final Image icon = ebIcon.getImage();
         mwEntradasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwEntradasBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Entrada.png"))); // NOI18N
         mwEntradasBTN.setText("Entradas");
+        mwEntradasBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwEntradasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwEntradasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         mwPanel.add(mwEntradasBTN);
@@ -62,6 +63,7 @@ private final Image icon = ebIcon.getImage();
         mwPostresBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwPostresBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Dessert.png"))); // NOI18N
         mwPostresBTN.setText("Postres");
+        mwPostresBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwPostresBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwPostresBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         mwPanel.add(mwPostresBTN);
@@ -69,6 +71,7 @@ private final Image icon = ebIcon.getImage();
         mwPlatosFuertesBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwPlatosFuertesBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_PlatoFuerte.png"))); // NOI18N
         mwPlatosFuertesBTN.setText("Platos Fuertes");
+        mwPlatosFuertesBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwPlatosFuertesBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwPlatosFuertesBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         mwPanel.add(mwPlatosFuertesBTN);
@@ -76,6 +79,7 @@ private final Image icon = ebIcon.getImage();
         mwBebidasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         mwBebidasBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Bebidas.png"))); // NOI18N
         mwBebidasBTN.setText("Bebidas");
+        mwBebidasBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwBebidasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwBebidasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         mwPanel.add(mwBebidasBTN);
