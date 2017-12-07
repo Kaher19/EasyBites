@@ -38,12 +38,10 @@ private final Image icon = ebIcon.getImage();
 
         mwScrollPanel = new javax.swing.JScrollPane();
         mwPanel = new javax.swing.JPanel();
-        mwEntradasBtn = new java.awt.Button();
-        mwPlatosFuertesBTN = new java.awt.Button();
-        mwPostresBTN = new java.awt.Button();
-        mwBebidasBTN = new java.awt.Button();
-        mwBebidasEmbriagantesBTN = new java.awt.Button();
-        mwAñadirCategoriaBTN = new java.awt.Button();
+        mwEntradasBTN = new javax.swing.JButton();
+        mwPostresBTN = new javax.swing.JButton();
+        mwPlatosFuertesBTN = new javax.swing.JButton();
+        mwBebidasBTN = new javax.swing.JButton();
         mwEasyBitesLabel = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,27 +52,38 @@ private final Image icon = ebIcon.getImage();
 
         mwPanel.setLayout(new java.awt.GridLayout(2, 3));
 
-        mwEntradasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        mwEntradasBtn.setLabel("Entradas");
-        mwPanel.add(mwEntradasBtn);
+        mwEntradasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
+        mwEntradasBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Entrada.png"))); // NOI18N
+        mwEntradasBTN.setText("Entradas");
+        mwEntradasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mwEntradasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mwPanel.add(mwEntradasBTN);
 
-        mwPlatosFuertesBTN.setLabel("Platos Fuertes");
-        mwPanel.add(mwPlatosFuertesBTN);
-
-        mwPostresBTN.setLabel("Postres");
+        mwPostresBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
+        mwPostresBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Dessert.png"))); // NOI18N
+        mwPostresBTN.setText("Postres");
+        mwPostresBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mwPostresBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         mwPanel.add(mwPostresBTN);
 
-        mwBebidasBTN.setLabel("Bebidas");
+        mwPlatosFuertesBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
+        mwPlatosFuertesBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_PlatoFuerte.png"))); // NOI18N
+        mwPlatosFuertesBTN.setText("Platos Fuertes");
+        mwPlatosFuertesBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mwPlatosFuertesBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mwPanel.add(mwPlatosFuertesBTN);
+
+        mwBebidasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
+        mwBebidasBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eb/images/eb_Bebidas.png"))); // NOI18N
+        mwBebidasBTN.setText("Bebidas");
+        mwBebidasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mwBebidasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         mwPanel.add(mwBebidasBTN);
-
-        mwBebidasEmbriagantesBTN.setLabel("Bebidas embriagantes");
-        mwPanel.add(mwBebidasEmbriagantesBTN);
-
-        mwAñadirCategoriaBTN.setLabel("Añadir nueva categoría...");
-        mwPanel.add(mwAñadirCategoriaBTN);
 
         mwScrollPanel.setViewportView(mwPanel);
 
+        mwEasyBitesLabel.setAlignment(java.awt.Label.CENTER);
+        mwEasyBitesLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         mwEasyBitesLabel.setFont(new java.awt.Font("MV Boli", 1, 48)); // NOI18N
         mwEasyBitesLabel.setText("EasyBites");
 
@@ -84,7 +93,7 @@ private final Image icon = ebIcon.getImage();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mwScrollPanel)
+                .addComponent(mwScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(277, 277, 277)
@@ -106,14 +115,12 @@ private final Image icon = ebIcon.getImage();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button mwAñadirCategoriaBTN;
-    private java.awt.Button mwBebidasBTN;
-    private java.awt.Button mwBebidasEmbriagantesBTN;
+    private javax.swing.JButton mwBebidasBTN;
     private java.awt.Label mwEasyBitesLabel;
-    private java.awt.Button mwEntradasBtn;
+    private javax.swing.JButton mwEntradasBTN;
     private javax.swing.JPanel mwPanel;
-    private java.awt.Button mwPlatosFuertesBTN;
-    private java.awt.Button mwPostresBTN;
+    private javax.swing.JButton mwPlatosFuertesBTN;
+    private javax.swing.JButton mwPostresBTN;
     private javax.swing.JScrollPane mwScrollPanel;
     // End of variables declaration//GEN-END:variables
 }
