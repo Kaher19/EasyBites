@@ -6,6 +6,7 @@
 package eb.view;
 
 import eb.controller.Controller;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -461,17 +462,9 @@ public class View extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if(evt.getClickCount()==2){
-            //Obtiene el valor de la columna Platillo
-            modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0);
-            //Obtiene el nombre de la columna Precio
-            modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 1);
-            String[] fila = new String[2];
-            fila[0]= modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString();
-            fila[1]= modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 1).toString();
-            JOptionPane.showMessageDialog(tabWindow, "El platillo " +fila[0] +fila[1] +
+            addSaucerToList();
+            JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
                 " se añadió a la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
-            String[][] datos = new String[0][1];
-            modelPedidosTable.addRow(fila);
         }
     }//GEN-LAST:event_platillosTableMouseClicked
 
@@ -482,6 +475,8 @@ public class View extends javax.swing.JFrame {
     //Este metodo carga los datos para la tabla
     private void loadTableData(String[][] datos, javax.swing.table.DefaultTableModel model, javax.swing.JTable table){
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setGridColor(Color.BLUE);
+        table.setShowHorizontalLines(false);
         table.doLayout();
         
         //Función que rellena los datos de la tabla con los datos obtenidos
@@ -536,8 +531,16 @@ public class View extends javax.swing.JFrame {
         }
     }
     
-    private void agregarProductos(){
+    private void addSaucerToList(){
         
+        //Obtiene el valor de la columna Platillo
+        //Obtiene el nombre de la columna Precio
+        //Obtiene la cantidad de platillos del jSpinner
+        String[] fila = new String[3];
+        fila[0] = cantidadProductoSpinner.getValue().toString();
+        fila[1]= modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString();
+        fila[2]= modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 1).toString();
+        modelPedidosTable.addRow(fila);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
