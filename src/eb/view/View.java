@@ -9,6 +9,7 @@ import eb.controller.Controller;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -38,15 +39,25 @@ public class View extends javax.swing.JFrame {
             }
         };
     
+    //Establecemos el icono de la aplicación
     private final ImageIcon ebIcon = new ImageIcon("src/eb/images/eb_Icon.png");
     private final Image icon = ebIcon.getImage();
+    
+    //Inicializamos la clase controller
     private final Controller control = new Controller();
     
+    //Inicia las variables del spinner
     final String spinnerNumbers[] = {"1","2","3","4","5","6","7","8","9","10"};
     private final SpinnerModel spinnerModel =  new SpinnerListModel(spinnerNumbers);
+    
+    //Inicializamos las variables e instancias correspondientes para la hora del sistema
+    private final Calendar calendario = Calendar.getInstance();
+    private int segundos = 0;
+    private int minutos = 0;
+    private int horas = 0;
 
     /**
-     * Se crea new form Model
+     * Creamos la forma View()
      */
     public View() {
         initComponents();
@@ -55,7 +66,7 @@ public class View extends javax.swing.JFrame {
         this.setTitle("EasyBites");
         this.setIconImage(icon);
         this.beginTable(modelPlatillosTable);
-        String[] header = {"Cantidad", "Producto", "Precio", "Tiempo"};
+        String[] header = {"Cantidad", "Producto", "Precio", "Hora"};
         this.beginTable(modelPedidosTable, header);
     }
 
@@ -88,6 +99,8 @@ public class View extends javax.swing.JFrame {
         ltSelectorMesaCB = new javax.swing.JComboBox<>();
         ltSelectMesaTableScrollPane = new javax.swing.JScrollPane();
         pedidosTable = new javax.swing.JTable();
+        lptTotalLabel = new javax.swing.JLabel();
+        lptTotalTextField = new javax.swing.JTextField();
         administracionTab = new javax.swing.JPanel();
         atAgregarPlatilloLabel = new javax.swing.JLabel();
         atTipoPlatilloCB = new javax.swing.JComboBox<>();
@@ -181,6 +194,16 @@ public class View extends javax.swing.JFrame {
         mwEasyBitesLabel.setText("EasyBites");
 
         mwSeleccionProductosTPane.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
+        mwSeleccionProductosTPane.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                mwSeleccionProductosTPaneFocusGained(evt);
+            }
+        });
+        mwSeleccionProductosTPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mwSeleccionProductosTPaneMouseClicked(evt);
+            }
+        });
 
         productosTab.setLayout(new java.awt.GridLayout(2, 3));
 
@@ -257,27 +280,48 @@ public class View extends javax.swing.JFrame {
         });
         ltSelectMesaTableScrollPane.setViewportView(pedidosTable);
 
+        lptTotalLabel.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
+        lptTotalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lptTotalLabel.setText("Total:    $");
+
+        lptTotalTextField.setEditable(false);
+        lptTotalTextField.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
+        lptTotalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        lptTotalTextField.setText("0.00");
+        lptTotalTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lptTotalTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout listaPedidosTabLayout = new javax.swing.GroupLayout(listaPedidosTab);
         listaPedidosTab.setLayout(listaPedidosTabLayout);
         listaPedidosTabLayout.setHorizontalGroup(
             listaPedidosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listaPedidosTabLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ltSelectorMesaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(listaPedidosTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                .addGap(145, 145, 145))
+                .addGroup(listaPedidosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                    .addGroup(listaPedidosTabLayout.createSequentialGroup()
+                        .addComponent(lptTotalLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lptTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(45, 45, 45)
+                .addComponent(ltSelectorMesaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         listaPedidosTabLayout.setVerticalGroup(
             listaPedidosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(listaPedidosTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ltSelectorMesaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(listaPedidosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ltSelectorMesaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(listaPedidosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lptTotalLabel)
+                        .addComponent(lptTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
         );
 
         mwSeleccionProductosTPane.addTab("Lista de pedidos", listaPedidosTab);
@@ -477,6 +521,8 @@ public class View extends javax.swing.JFrame {
         if(evt.getClickCount()==2){
             if(this.existSaucerInList(modelPlatillosTable, platillosTable, modelPedidosTable, pedidosTable)==false){
                 this.addSaucerToList();
+                this.iniciarTimerEn(3);
+                lptTotalTextField.setText("" +updateTotal());
                 //this.updateAmountSaucerAtList(platillo);
                 JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
                 " se añadió a la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
@@ -484,6 +530,7 @@ public class View extends javax.swing.JFrame {
             else {
                 JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
                 " aumento su valor en la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
+                lptTotalTextField.setText("" +updateTotal());
                 this.updateAmountSaucerAtList(modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString());
             }
         }
@@ -494,6 +541,18 @@ public class View extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "El platillo " +modelPedidosTable.getValueAt(pedidosTable.getSelectedRow(), 0) +
         " puede ser eliminado", "Info", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_eliminarOrdenOpcionPopUpMenuActionPerformed
+
+    private void lptTotalTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lptTotalTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lptTotalTextFieldActionPerformed
+
+    private void mwSeleccionProductosTPaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mwSeleccionProductosTPaneFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mwSeleccionProductosTPaneFocusGained
+
+    private void mwSeleccionProductosTPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mwSeleccionProductosTPaneMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mwSeleccionProductosTPaneMouseClicked
 
     /*
     Funciones  creadas por mi
@@ -578,10 +637,10 @@ public class View extends javax.swing.JFrame {
         }
     }
     
-    private void addSaucerToList(){
         //Obtiene el valor de la columna Platillo
         //Obtiene el nombre de la columna Precio
         //Obtiene la cantidad de platillos del jSpinner
+    private void addSaucerToList(){
         String[] fila = new String[4];
         fila[0] = cantidadProductoSpinner.getValue().toString();
         fila[1]= modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString();
@@ -589,6 +648,7 @@ public class View extends javax.swing.JFrame {
         modelPedidosTable.addRow(fila);
     }
     
+    //Actualiza la cantidad de platillos pedidos de la tabla
     private void updateAmountSaucerAtList(String platillo){
         int oldValue;
         int newValue;
@@ -605,14 +665,33 @@ public class View extends javax.swing.JFrame {
         }
     }
     
-    //Función que realiza una espera de 1000ms(1 segundo)
-    private static void delaySegundo(){      
-        try{
-            Thread.sleep(1000);
-        }
-        catch(InterruptedException e){
-        }          
+    private void iniciarTimerEn(int column){
+        horas =calendario.get(Calendar.HOUR_OF_DAY);
+        minutos = calendario.get(Calendar.MINUTE);
+        segundos = calendario.get(Calendar.SECOND);
+        int lastRow=(pedidosTable.getRowCount())-1;
+        modelPedidosTable.setValueAt(horas +":" +minutos +":" +segundos, lastRow, column);
     }
+    
+    //Función que actualiza el total de la tabla pedidosTable
+    private double updateTotal (){
+        int filas = pedidosTable.getRowCount();
+        int columnaPrecio = 2;
+        int columnaCantidad = 0;
+        int cantidad;
+        int precio;
+        int total= 0;
+        if(filas>0){
+            for(int i = 0; i<filas; i++){
+                cantidad = Integer.parseInt(""+modelPedidosTable.getValueAt(i, columnaPrecio));
+                precio = Integer.parseInt(""+modelPedidosTable.getValueAt(i, columnaCantidad));
+                total=total+(precio*cantidad);
+            }
+        }
+        return total;
+    }
+    
+    //Función que realiza una espera de 1000ms(1 segundo)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel administracionTab;
@@ -626,6 +705,8 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JMenuItem eliminarOrdenOpcionPopUpMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel listaPedidosTab;
+    private javax.swing.JLabel lptTotalLabel;
+    private javax.swing.JTextField lptTotalTextField;
     private javax.swing.JScrollPane ltSelectMesaTableScrollPane;
     private javax.swing.JComboBox<String> ltSelectorMesaCB;
     private javax.swing.JPopupMenu menuPedidosPopUp;

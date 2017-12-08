@@ -40,7 +40,7 @@ public class Controller {
                     for(int row=0; row<rowSize; row++){
                         if(rSet.next()){
                             table[row][0] = rSet.getString("Platillo");
-                            table[row][1] = "" +rSet.getFloat("Costo");
+                            table[row][1] = "" +rSet.getInt("Costo");
                         }
                     }
                 query.closeDBQuery();
