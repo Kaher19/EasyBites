@@ -70,10 +70,6 @@ public class DBQuery {
         return resultset;
     }
     
-    public void closeDBQuery(){
-        dbconnection.closeConnection();
-    }
-    
     public ResultSet getAllSaucers(String saucer){
         String SQLquery =
                 "SELECT Platillo " +
@@ -89,5 +85,91 @@ public class DBQuery {
             System.out.print(ex);
         }
         return resultset;
+    }
+    
+    public ResultSet getPlatillosFromThisMesa(String saucer, String mesa){
+        String SQLquery =
+                "SELECT Producto " +
+                "FROM mesas " +
+                "WHERE Producto=\'" +saucer + "\' AND Mesa=\'" +mesa + "\'";
+        try{
+        dbconnection = new DBConnection();
+        Connection connection = dbconnection.getConnection();
+        query = connection.createStatement();
+        resultset = query.executeQuery(SQLquery);
+        }
+        catch(SQLException | FileNotFoundException ex){
+            System.out.print(ex);
+        }
+        return resultset;
+    }
+    
+    public ResultSet getAllPedidosMesa(String mesa){
+        String SQLquery =
+                "SELECT Cantidad, Producto, Precio, Hora " +
+                "FROM mesas " +
+                "WHERE Mesa=\'" +mesa +"\'";
+        try{
+        dbconnection = new DBConnection();
+        Connection connection = dbconnection.getConnection();
+        query = connection.createStatement();
+        resultset = query.executeQuery(SQLquery);
+        }
+        catch(SQLException | FileNotFoundException ex){
+            System.out.print(ex);
+        }
+        return resultset;
+    }
+    
+    public ResultSet getAPedidoMesa(String mesa, String platillo){
+        String SQLquery =
+                "SELECT Cantidad, Producto " +
+                "FROM mesas " +
+                "WHERE Mesa=\'" +mesa +"\' AND Producto=\'" +platillo +"\'";
+        try{
+        dbconnection = new DBConnection();
+        Connection connection = dbconnection.getConnection();
+        query = connection.createStatement();
+        resultset = query.executeQuery(SQLquery);
+        }
+        catch(SQLException | FileNotFoundException ex){
+            System.out.print(ex);
+        }
+        return resultset;
+    }
+    
+    public ResultSet setMesaPedidos(String mesa, int cantidad, String platillo, int precio){
+        String SQLquery =
+                "INSERT INTO restaurant.mesas (`Mesa`, `Cantidad`, `Producto`, `Precio`, `Hora`)" +
+                "VALUES (\'" +mesa +"\', " +cantidad +", \'" +platillo +"\', " +precio+", CURRENT_TIME)";
+        try{
+        dbconnection = new DBConnection();
+        Connection connection = dbconnection.getConnection();
+        query = connection.createStatement();
+        query.executeUpdate(SQLquery);
+        }
+        catch(SQLException | FileNotFoundException ex){
+            System.out.print(ex);
+        }
+        return resultset;
+    }
+    
+    public ResultSet updateCantidad(String mesa, int cantidad, String platillo){
+        String SQLquery =
+                "UPDATE mesas SET Cantidad = " +cantidad +" WHERE Mesa = \'" +mesa +"\' AND Producto = \'" +platillo +"\'";
+        try{
+        dbconnection = new DBConnection();
+        Connection connection = dbconnection.getConnection();
+        query = connection.createStatement();
+        query.executeUpdate(SQLquery);
+        }
+        catch(SQLException | FileNotFoundException ex){
+            System.out.print(ex);
+        }
+        return resultset;
+    }
+    
+    public void closeDBQuery(){
+        dbconnection.closeConnection();
     }
 }

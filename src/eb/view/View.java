@@ -264,7 +264,7 @@ public class View extends javax.swing.JFrame {
         mwSeleccionProductosTPane.addTab("Productos", productosTab);
 
         ltSelectorMesaCB.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
-        ltSelectorMesaCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mesa 1", "Mesa 2", "Mesa 3", "Mesa 4" }));
+        ltSelectorMesaCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Mesa 1", "Mesa 2", "Mesa 3", "Mesa 4" }));
         ltSelectorMesaCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ltSelectorMesaCBActionPerformed(evt);
@@ -301,7 +301,7 @@ public class View extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listaPedidosTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(listaPedidosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                    .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
                     .addGroup(listaPedidosTabLayout.createSequentialGroup()
                         .addComponent(lptTotalLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -507,6 +507,22 @@ public class View extends javax.swing.JFrame {
 
     private void ltSelectorMesaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ltSelectorMesaCBActionPerformed
         // TODO add your handling code here:
+        if(evt.getActionCommand().equals("comboBoxChanged")){
+            try{
+                if(!ltSelectorMesaCB.getSelectedItem().toString().equals("Seleccionar")){
+                    this.limpiarTabla(modelPedidosTable, pedidosTable);
+                    String mesa = ltSelectorMesaCB.getSelectedItem().toString();
+                    this.cargarTabla(control.getPedidosFromMesas(mesa), modelPedidosTable, pedidosTable);
+                    this.updateTotal();
+                }
+                else {
+                    this.limpiarTabla(modelPedidosTable, pedidosTable);
+                    this.resetTotal();
+                }
+            } catch (SQLException ex) {
+                    Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_ltSelectorMesaCBActionPerformed
 
     private void pedidosTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pedidosTableMouseClicked
@@ -519,19 +535,34 @@ public class View extends javax.swing.JFrame {
     private void platillosTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_platillosTableMouseClicked
         // TODO add your handling code here:
         if(evt.getClickCount()==2){
-            if(this.existSaucerInList(modelPlatillosTable, platillosTable, modelPedidosTable, pedidosTable)==false){
-                this.addSaucerToList();
-                this.iniciarTimerEn(3);
-                lptTotalTextField.setText("" +updateTotal());
-                //this.updateAmountSaucerAtList(platillo);
-                JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
-                " se añadió a la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
-            } 
-            else {
-                JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
-                " aumento su valor en la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
-                lptTotalTextField.setText("" +updateTotal());
-                this.updateAmountSaucerAtList(modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString());
+            try {
+                if(!ltSelectorMesaCB.getSelectedItem().toString().equals("Seleccionar")){
+                    String mesa = ltSelectorMesaCB.getSelectedItem().toString();
+                    int cantidad = Integer.parseInt(cantidadProductoSpinner.getValue().toString());
+                    String platillo = modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString();
+                    int precio = Integer.parseInt(modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 1).toString());
+                    if(control.existThisSaucerInThisTable(platillo, mesa)==false){
+                        control.addSaucerToList(mesa, cantidad, platillo, precio);
+                        this.limpiarTabla(modelPedidosTable, pedidosTable);
+                        this.cargarTabla(control.getPedidosFromMesas(mesa), modelPedidosTable, pedidosTable);
+                        this.updateTotal();
+                        JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
+                        " se añadió a la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else {
+                        control.modifyQuantitySaucerToList(mesa, cantidad, platillo);
+                        this.limpiarTabla(modelPedidosTable, pedidosTable);
+                        this.cargarTabla(control.getPedidosFromMesas(mesa), modelPedidosTable, pedidosTable);
+                        this.updateTotal();
+                        JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
+                        " se sumó en la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(tabWindow, "Primero seleccione una mesa", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_platillosTableMouseClicked
@@ -674,7 +705,7 @@ public class View extends javax.swing.JFrame {
     }
     
     //Función que actualiza el total de la tabla pedidosTable
-    private double updateTotal (){
+    private void updateTotal (){
         int filas = pedidosTable.getRowCount();
         int columnaPrecio = 2;
         int columnaCantidad = 0;
@@ -687,8 +718,12 @@ public class View extends javax.swing.JFrame {
                 precio = Integer.parseInt(""+modelPedidosTable.getValueAt(i, columnaCantidad));
                 total=total+(precio*cantidad);
             }
+            lptTotalTextField.setText("" +total);
         }
-        return total;
+    }
+    
+    private void resetTotal(){
+        lptTotalTextField.setText("0.00");
     }
     
     //Función que realiza una espera de 1000ms(1 segundo)
