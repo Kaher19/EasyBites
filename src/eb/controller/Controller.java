@@ -84,6 +84,35 @@ public class Controller {
         return table;
     }
     
+    public String[] getPlatillosByType(String tipo) throws SQLException{
+        String[] platillos;
+        if(tipo != null){
+            int numElementos;
+            rSet=query.getPlatillosPorTipo(tipo);
+
+            //Comprobamos si la tabla tiene datos
+            if(rSet.next()){
+                //Obtenemos el tamaño del query para establecer
+                //el tamaño de la tabla generada
+                rSet.last();
+                numElementos=rSet.getRow();
+                rSet.beforeFirst();
+                //
+                platillos = new String[numElementos];
+                    for(int i=0; i<numElementos; i++){
+                        if(rSet.next()){
+                            platillos[i] = rSet.getString("Platillo");
+                        }
+                    }
+                query.closeDBQuery();
+                rSet.close();
+            }else platillos=null;
+        } else {
+            platillos = null;
+        }
+        return platillos;
+    }
+    
     public void addSaucerToList(String mesa, int cantidad, String platillo, int precio) throws SQLException{
         rSet=query.setMesaPedidos(mesa, cantidad, platillo, precio);
         query.closeDBQuery();
@@ -116,6 +145,11 @@ public class Controller {
         rSet.close();
     }
     
+    public void limpiarPedidosMesa(String mesa) throws SQLException{
+        rSet=query.deleteAllpedidos(mesa);
+        query.closeDBQuery();
+    }
+    
     public boolean existThisSaucer(String saucer) throws SQLException {
         boolean exist = false;
         rSet=query.getAllSaucers(saucer);
@@ -138,5 +172,14 @@ public class Controller {
         query.closeDBQuery();
         rSet.close();
         return exist;
+    }
+    
+    public boolean isTableEmpty(String mesa) throws SQLException{
+        boolean empty = false;
+        rSet = query.getAllPedidosMesa(mesa);
+        if(!rSet.next()){
+            empty=true;
+        }
+        return empty;
     }
 }

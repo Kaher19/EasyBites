@@ -154,6 +154,21 @@ public class DBQuery {
         return resultset;
     }
     
+    public ResultSet deleteAllpedidos(String mesa){
+        String SQLquery =
+                "DELETE FROM mesas WHERE Mesa = \'" +mesa +"\'";
+        try{
+        dbconnection = new DBConnection();
+        Connection connection = dbconnection.getConnection();
+        query = connection.createStatement();
+        query.executeUpdate(SQLquery);
+        }
+        catch(SQLException | FileNotFoundException ex){
+            System.out.print(ex);
+        }
+        return resultset;
+    }
+    
     public ResultSet updateCantidad(String mesa, int cantidad, String platillo){
         String SQLquery =
                 "UPDATE mesas SET Cantidad = " +cantidad +" WHERE Mesa = \'" +mesa +"\' AND Producto = \'" +platillo +"\'";
