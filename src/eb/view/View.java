@@ -5,70 +5,83 @@
  */
 package eb.view;
 
-import eb.controller.Controller;
-import java.awt.Color;
-import java.awt.Image;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerModel;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Kirbey
  */
 public class View extends javax.swing.JFrame {
-//Declaración de variables globales    
-    private final DefaultTableModel modelPlatillosTable = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column < 0;
-            }
-        };
-    
-    private final DefaultTableModel modelPedidosTable = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column < 0;
-            }
-        };
-    
-    //Establecemos el icono de la aplicación
-    private final ImageIcon ebIcon = new ImageIcon("src/eb/images/eb_Icon.png");
-    private final Image icon = ebIcon.getImage();
-    
-    //Inicializamos la clase controller
-    private final Controller control = new Controller();
-    
-    //Inicia las variables del spinner
-    final String spinnerNumbers[] = {"1","2","3","4","5","6","7","8","9","10"};
-    private final SpinnerModel spinnerModel =  new SpinnerListModel(spinnerNumbers);
-    
-    //Inicializamos las variables e instancias correspondientes para la hora del sistema
-    private final Calendar calendario = Calendar.getInstance();
-    private int segundos = 0;
-    private int minutos = 0;
-    private int horas = 0;
 
     /**
      * Creamos la forma View()
      */
     public View() {
         initComponents();
-        setVisible(true);
+        this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setTitle("EasyBites");
-        this.setIconImage(icon);
-        this.beginTable(modelPlatillosTable);
-        String[] header = {"Cantidad", "Producto", "Precio", "Hora"};
-        this.beginTable(modelPedidosTable, header);
     }
+
+    public void initSecondaryWindow() {
+        tabWindow.setVisible(true);
+        tabWindow.setTitle("Lista de platillos");
+        tabWindow.setLocationRelativeTo(null);
+    }
+
+    public JButton getMwEntradasBTN() {
+        return mwEntradasBTN;
+    }
+
+    public JButton getMwBebidasBTN() {
+        return mwBebidasBTN;
+    }
+
+    public JButton getMwPlatosFuertesBTN() {
+        return mwPlatosFuertesBTN;
+    }
+
+    public JButton getMwPostresBTN() {
+        return mwPostresBTN;
+    }
+
+    public JTable getPlatillosTable() {
+        return platillosTable;
+    }
+
+    public JComboBox<String> getAtTipoPlatilloCB() {
+        return atTipoPlatilloCB;
+    }
+
+    public JButton getTwCancelBTN() {
+        return twCancelBTN;
+    }
+
+    public JFrame getTabWindow() {
+        return tabWindow;
+    }
+
+    public JTextField getAtAreaNombreTF() {
+        return atAreaNombreTF;
+    }
+    public JButton getAtAgregarBTN() {
+        return atAgregarBTN;
+    }
+
+    public JFormattedTextField getAtPrecioFTF() {
+        return atPrecioFTF;
+    }
+
+    public JButton getEliminarBtn() {
+        return EliminarBtn;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,8 +99,7 @@ public class View extends javax.swing.JFrame {
         twSelecciónPlatilloLabel = new javax.swing.JLabel();
         cantidadProductoSpinner = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
-        menuPedidosPopUp = new javax.swing.JPopupMenu();
-        eliminarOrdenOpcionPopUpMenu = new javax.swing.JMenuItem();
+        EliminarBtn = new javax.swing.JButton();
         mwEasyBitesLabel = new java.awt.Label();
         mwSeleccionProductosTPane = new javax.swing.JTabbedPane();
         productosTab = new javax.swing.JPanel();
@@ -106,27 +118,25 @@ public class View extends javax.swing.JFrame {
         atTipoPlatilloCB = new javax.swing.JComboBox<>();
         atAreaNombreTF = new javax.swing.JTextField();
         mwPrecioPlatilloLabel = new javax.swing.JLabel();
-        atPrecioPlatilloTF = new javax.swing.JTextField();
         atAgregarPlatilloLabel2 = new javax.swing.JLabel();
         atAgregarBTN = new javax.swing.JButton();
+        atPrecioFTF = new javax.swing.JFormattedTextField();
 
         tabWindow.setTitle("Seleccionar Platillos");
         tabWindow.setIconImage(getIconImage());
         tabWindow.setMinimumSize(new java.awt.Dimension(800, 600));
 
         twCancelBTN.setText("Cancelar");
-        twCancelBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                twCancelBTNActionPerformed(evt);
-            }
-        });
 
-        platillosTable.setModel(modelPlatillosTable);
-        platillosTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                platillosTableMouseClicked(evt);
+        platillosTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Platillo", "Precio"
             }
-        });
+        ));
+        platillosTable.getTableHeader().setReorderingAllowed(false);
         twTableScrollPane.setViewportView(platillosTable);
 
         twSelecciónPlatilloLabel.setFont(new java.awt.Font("MV Boli", 0, 48)); // NOI18N
@@ -135,10 +145,12 @@ public class View extends javax.swing.JFrame {
         twSelecciónPlatilloLabel.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         cantidadProductoSpinner.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        cantidadProductoSpinner.setModel(spinnerModel);
 
         jLabel1.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
         jLabel1.setText("Seleccionar cantidad");
+
+        EliminarBtn.setText("Eliminar");
+        EliminarBtn.setEnabled(false);
 
         javax.swing.GroupLayout tabWindowLayout = new javax.swing.GroupLayout(tabWindow.getContentPane());
         tabWindow.getContentPane().setLayout(tabWindowLayout);
@@ -156,6 +168,8 @@ public class View extends javax.swing.JFrame {
                     .addComponent(twSelecciónPlatilloLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabWindowLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(EliminarBtn)
+                        .addGap(18, 18, 18)
                         .addComponent(twCancelBTN)))
                 .addContainerGap())
         );
@@ -171,17 +185,11 @@ public class View extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(twTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                 .addGap(46, 46, 46)
-                .addComponent(twCancelBTN)
+                .addGroup(tabWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(twCancelBTN)
+                    .addComponent(EliminarBtn))
                 .addContainerGap())
         );
-
-        eliminarOrdenOpcionPopUpMenu.setText("Eliminar Orden");
-        eliminarOrdenOpcionPopUpMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarOrdenOpcionPopUpMenuActionPerformed(evt);
-            }
-        });
-        menuPedidosPopUp.add(eliminarOrdenOpcionPopUpMenu);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -194,16 +202,6 @@ public class View extends javax.swing.JFrame {
         mwEasyBitesLabel.setText("EasyBites");
 
         mwSeleccionProductosTPane.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
-        mwSeleccionProductosTPane.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                mwSeleccionProductosTPaneFocusGained(evt);
-            }
-        });
-        mwSeleccionProductosTPane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mwSeleccionProductosTPaneMouseClicked(evt);
-            }
-        });
 
         productosTab.setLayout(new java.awt.GridLayout(2, 3));
 
@@ -213,11 +211,6 @@ public class View extends javax.swing.JFrame {
         mwEntradasBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwEntradasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwEntradasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        mwEntradasBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mwEntradasBTNActionPerformed(evt);
-            }
-        });
         productosTab.add(mwEntradasBTN);
 
         mwPostresBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
@@ -228,11 +221,6 @@ public class View extends javax.swing.JFrame {
         mwPostresBTN.setDisabledSelectedIcon(null);
         mwPostresBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwPostresBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        mwPostresBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mwPostresBTNActionPerformed(evt);
-            }
-        });
         productosTab.add(mwPostresBTN);
 
         mwPlatosFuertesBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
@@ -241,11 +229,6 @@ public class View extends javax.swing.JFrame {
         mwPlatosFuertesBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwPlatosFuertesBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwPlatosFuertesBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        mwPlatosFuertesBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mwPlatosFuertesBTNActionPerformed(evt);
-            }
-        });
         productosTab.add(mwPlatosFuertesBTN);
 
         mwBebidasBTN.setFont(new java.awt.Font("MV Boli", 0, 24)); // NOI18N
@@ -254,30 +237,13 @@ public class View extends javax.swing.JFrame {
         mwBebidasBTN.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         mwBebidasBTN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mwBebidasBTN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        mwBebidasBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mwBebidasBTNActionPerformed(evt);
-            }
-        });
         productosTab.add(mwBebidasBTN);
 
         mwSeleccionProductosTPane.addTab("Productos", productosTab);
 
         ltSelectorMesaCB.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
         ltSelectorMesaCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Mesa 1", "Mesa 2", "Mesa 3", "Mesa 4" }));
-        ltSelectorMesaCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ltSelectorMesaCBActionPerformed(evt);
-            }
-        });
 
-        pedidosTable.setModel(modelPedidosTable);
-        pedidosTable.setComponentPopupMenu(menuPedidosPopUp);
-        pedidosTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pedidosTableMouseClicked(evt);
-            }
-        });
         ltSelectMesaTableScrollPane.setViewportView(pedidosTable);
 
         lptTotalLabel.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
@@ -288,11 +254,6 @@ public class View extends javax.swing.JFrame {
         lptTotalTextField.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
         lptTotalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lptTotalTextField.setText("0.00");
-        lptTotalTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lptTotalTextFieldActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout listaPedidosTabLayout = new javax.swing.GroupLayout(listaPedidosTab);
         listaPedidosTab.setLayout(listaPedidosTabLayout);
@@ -301,7 +262,7 @@ public class View extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listaPedidosTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(listaPedidosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+                    .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(listaPedidosTabLayout.createSequentialGroup()
                         .addComponent(lptTotalLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +282,7 @@ public class View extends javax.swing.JFrame {
                         .addComponent(lptTotalLabel)
                         .addComponent(lptTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+                .addComponent(ltSelectMesaTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE))
         );
 
         mwSeleccionProductosTPane.addTab("Lista de pedidos", listaPedidosTab);
@@ -330,31 +291,23 @@ public class View extends javax.swing.JFrame {
         atAgregarPlatilloLabel.setText("Agregar nuevo platillo o bebida");
 
         atTipoPlatilloCB.setFont(new java.awt.Font("MV Boli", 0, 12)); // NOI18N
-        atTipoPlatilloCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada", "Plato Fuerte", "Postre", "Bebida" }));
+        atTipoPlatilloCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Entrada", "Plato Fuerte", "Postre", "Bebida" }));
 
         atAreaNombreTF.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         atAreaNombreTF.setText("Nuevo nombre");
-        atAreaNombreTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atAreaNombreTFActionPerformed(evt);
-            }
-        });
 
         mwPrecioPlatilloLabel.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
         mwPrecioPlatilloLabel.setText("Precio del platillo");
-
-        atPrecioPlatilloTF.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        atPrecioPlatilloTF.setText("000.0");
 
         atAgregarPlatilloLabel2.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
         atAgregarPlatilloLabel2.setText("Nombre del platillo");
 
         atAgregarBTN.setText("Agregar...");
-        atAgregarBTN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atAgregarBTNActionPerformed(evt);
-            }
-        });
+
+        atPrecioFTF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.##"))));
+        atPrecioFTF.setText("0");
+        atPrecioFTF.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        atPrecioFTF.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout administracionTabLayout = new javax.swing.GroupLayout(administracionTab);
         administracionTab.setLayout(administracionTabLayout);
@@ -367,25 +320,24 @@ public class View extends javax.swing.JFrame {
                         .addComponent(atAgregarPlatilloLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(administracionTabLayout.createSequentialGroup()
-                        .addComponent(atAreaNombreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addGroup(administracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(administracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(administracionTabLayout.createSequentialGroup()
-                                .addComponent(mwPrecioPlatilloLabel)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(atAgregarBTN)
+                                .addGap(168, 168, 168))
                             .addGroup(administracionTabLayout.createSequentialGroup()
-                                .addComponent(atPrecioPlatilloTF, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(atTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(133, 133, 133))))
-                    .addGroup(administracionTabLayout.createSequentialGroup()
-                        .addComponent(atAgregarBTN)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(atAreaNombreTF)
+                                .addGap(44, 44, 44)))
+                        .addGroup(administracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(mwPrecioPlatilloLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(atPrecioFTF))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(atTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(133, 133, 133))))
             .addGroup(administracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(administracionTabLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addComponent(atAgregarPlatilloLabel2)
-                    .addContainerGap(529, Short.MAX_VALUE)))
+                    .addContainerGap(472, Short.MAX_VALUE)))
         );
         administracionTabLayout.setVerticalGroup(
             administracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,15 +350,15 @@ public class View extends javax.swing.JFrame {
                 .addGroup(administracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(atTipoPlatilloCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(atAreaNombreTF)
-                    .addComponent(atPrecioPlatilloTF))
-                .addGap(18, 18, 18)
+                    .addComponent(atPrecioFTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addComponent(atAgregarBTN)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(administracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(administracionTabLayout.createSequentialGroup()
                     .addGap(62, 62, 62)
                     .addComponent(atAgregarPlatilloLabel2)
-                    .addContainerGap(83, Short.MAX_VALUE)))
+                    .addContainerGap(97, Short.MAX_VALUE)))
         );
 
         mwSeleccionProductosTPane.addTab("Administración", administracionTab);
@@ -437,314 +389,23 @@ public class View extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void twCancelBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twCancelBTNActionPerformed
-        // TODO add your handling code here:
-        tabWindow.setVisible(false);
-    }//GEN-LAST:event_twCancelBTNActionPerformed
-
-    private void mwEntradasBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwEntradasBTNActionPerformed
-        // TODO add your handling code here:
-        this.beginTableWindow();
-        this.limpiarTabla(modelPlatillosTable, platillosTable);
-        this.cargarTabla(this.loadSaucersByType("pe"), modelPlatillosTable, platillosTable);
-    }//GEN-LAST:event_mwEntradasBTNActionPerformed
-
-    private void mwPostresBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwPostresBTNActionPerformed
-        // TODO add your handling code here:
-        this.beginTableWindow();
-        this.limpiarTabla(modelPlatillosTable, platillosTable);
-        this.cargarTabla(this.loadSaucersByType("pp"), modelPlatillosTable, platillosTable);
-    }//GEN-LAST:event_mwPostresBTNActionPerformed
-
-    private void mwPlatosFuertesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwPlatosFuertesBTNActionPerformed
-        // TODO add your handling code here:
-        this.beginTableWindow();
-        this.limpiarTabla(modelPlatillosTable, platillosTable);
-        this.cargarTabla(this.loadSaucersByType("pf"), modelPlatillosTable, platillosTable);
-    }//GEN-LAST:event_mwPlatosFuertesBTNActionPerformed
-
-    private void mwBebidasBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mwBebidasBTNActionPerformed
-        // TODO add your handling code here:
-        this.beginTableWindow();
-        this.limpiarTabla(modelPlatillosTable, platillosTable);
-        this.cargarTabla(this.loadSaucersByType("pb"), modelPlatillosTable, platillosTable);
-    }//GEN-LAST:event_mwBebidasBTNActionPerformed
-
-    private void atAgregarBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atAgregarBTNActionPerformed
-        // TODO add your handling code here:
-        String saucer = atAreaNombreTF.getText();
-        String type = atTipoPlatilloCB.getSelectedItem().toString();
-        float precio = Float.parseFloat(atPrecioPlatilloTF.getText());
-        try {
-            if(control.existThisSaucer(saucer)==true){
-                JOptionPane.showMessageDialog(this, "El platillo " +saucer +
-                " ya existe", "Error", JOptionPane.WARNING_MESSAGE);
-            } else {
-                switch(type){
-                    case "Entrada": type = "pe";
-                        break;
-                    case "Plato Fuerte": type = "pf";
-                        break;
-                    case "Postre": type = "pp";
-                        break;
-                    case "Bebida": type = "pb";
-                        break;    
-                }
-                control.addNewSaucer(type, saucer, precio);
-                JOptionPane.showMessageDialog(this, "El platillo " +saucer +
-                " se añadió exitosamente", "Hecho", JOptionPane.INFORMATION_MESSAGE);
-            }
-            } catch (SQLException ex) {
-                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        atAreaNombreTF.setText("Nuevo nombre");
-        atPrecioPlatilloTF.setText("000.0");
-    }//GEN-LAST:event_atAgregarBTNActionPerformed
-
-    private void atAreaNombreTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atAreaNombreTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atAreaNombreTFActionPerformed
-
-    private void ltSelectorMesaCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ltSelectorMesaCBActionPerformed
-        // TODO add your handling code here:
-        if(evt.getActionCommand().equals("comboBoxChanged")){
-            try{
-                if(!ltSelectorMesaCB.getSelectedItem().toString().equals("Seleccionar")){
-                    this.limpiarTabla(modelPedidosTable, pedidosTable);
-                    String mesa = ltSelectorMesaCB.getSelectedItem().toString();
-                    this.cargarTabla(control.getPedidosFromMesas(mesa), modelPedidosTable, pedidosTable);
-                    this.updateTotal();
-                }
-                else {
-                    this.limpiarTabla(modelPedidosTable, pedidosTable);
-                    this.resetTotal();
-                }
-            } catch (SQLException ex) {
-                    Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_ltSelectorMesaCBActionPerformed
-
-    private void pedidosTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pedidosTableMouseClicked
-        // TODO add your handling code here:
-        if(evt.getClickCount()==2){
-            
-        }
-    }//GEN-LAST:event_pedidosTableMouseClicked
-
-    private void platillosTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_platillosTableMouseClicked
-        // TODO add your handling code here:
-        if(evt.getClickCount()==2){
-            try {
-                if(!ltSelectorMesaCB.getSelectedItem().toString().equals("Seleccionar")){
-                    String mesa = ltSelectorMesaCB.getSelectedItem().toString();
-                    int cantidad = Integer.parseInt(cantidadProductoSpinner.getValue().toString());
-                    String platillo = modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString();
-                    int precio = Integer.parseInt(modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 1).toString());
-                    if(control.existThisSaucerInThisTable(platillo, mesa)==false){
-                        control.addSaucerToList(mesa, cantidad, platillo, precio);
-                        this.limpiarTabla(modelPedidosTable, pedidosTable);
-                        this.cargarTabla(control.getPedidosFromMesas(mesa), modelPedidosTable, pedidosTable);
-                        this.updateTotal();
-                        JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
-                        " se añadió a la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    else {
-                        control.modifyQuantitySaucerToList(mesa, cantidad, platillo);
-                        this.limpiarTabla(modelPedidosTable, pedidosTable);
-                        this.cargarTabla(control.getPedidosFromMesas(mesa), modelPedidosTable, pedidosTable);
-                        this.updateTotal();
-                        JOptionPane.showMessageDialog(tabWindow, "El platillo " +modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0) +
-                        " se sumó en la lista", "Hecho", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                }
-                else {
-                    JOptionPane.showMessageDialog(tabWindow, "Primero seleccione una mesa", "Error", JOptionPane.WARNING_MESSAGE);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_platillosTableMouseClicked
-
-    private void eliminarOrdenOpcionPopUpMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarOrdenOpcionPopUpMenuActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "El platillo " +modelPedidosTable.getValueAt(pedidosTable.getSelectedRow(), 0) +
-        " puede ser eliminado", "Info", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_eliminarOrdenOpcionPopUpMenuActionPerformed
-
-    private void lptTotalTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lptTotalTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lptTotalTextFieldActionPerformed
-
-    private void mwSeleccionProductosTPaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_mwSeleccionProductosTPaneFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mwSeleccionProductosTPaneFocusGained
-
-    private void mwSeleccionProductosTPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mwSeleccionProductosTPaneMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mwSeleccionProductosTPaneMouseClicked
-
-    /*
-    Funciones  creadas por mi
-    */
-    
-    //Este metodo carga los datos para la tabla
-    private void cargarTabla(String[][] datos, javax.swing.table.DefaultTableModel model, javax.swing.JTable table){
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        table.setGridColor(Color.BLUE);
-        table.setShowHorizontalLines(false);
-        table.doLayout();
-        
-        //Función que rellena los datos de la tabla con los datos obtenidos
-        String[] line = new String[datos[0].length];
-        for (String[] dato : datos) {
-            for (int column = 0; column<line.length; column++) {
-                line[column] = "" + dato[column];
-            }
-            model.addRow(line);
-        }
-    }
-    
-    //Comprueba si el elemento que añadiremos no se encuentra aún en la lista
-    //Si ya se encuentra solo se aumenta el contador
-    private boolean existSaucerInList(javax.swing.table.DefaultTableModel originModel, JTable originTable, javax.swing.table.DefaultTableModel listModel, JTable listTable){
-        boolean exist = false;
-        int filas;
-        if(listModel.getRowCount()>=1){
-            String firstValue = originModel.getValueAt(originTable.getSelectedRow(), 0).toString();
-            filas = listModel.getRowCount();
-            for(int i=0; i<filas; i++){
-                if(firstValue.equals(listTable.getValueAt(i, 1).toString())){
-                    exist = true;
-                }
-            }
-        }
-        return exist;
-    }
-    
-    //Método que inicializa la ventana tableWindow
-    private void beginTableWindow(){
-        tabWindow.setVisible(true);
-        tabWindow.setLocationRelativeTo(null);
-        tabWindow.setIconImage(icon);
-    }
-    
-    //Método que inicializa la tabla con la cabecera por defecto
-    private void beginTable(javax.swing.table.DefaultTableModel model){
-        String elementos[] = control.getHeader();
-        for (String elemento : elementos) {
-            model.addColumn(elemento);
-        }
-    }
-    
-    //Método que recibe un String[]. Inicializa la tabla con una cabecera personalizada
-    private void beginTable(javax.swing.table.DefaultTableModel model, String[] header){
-        String elementos[] = header;
-        for (String elemento : elementos) {
-            model.addColumn(elemento);
-        }
-    }
-    
-    //Carga los datos del tipo de salsa recibido String type
-    private String[][] loadSaucersByType(String type){
-        String[][] table = null;
-        try {
-            table = control.getThisTypeOfSauces(type);
-        } catch (SQLException ex) {
-            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return table;
-    }
-    
-    //Deja vacía la tabla exceptuando el header, el cual se mantiene
-    private void limpiarTabla(javax.swing.table.DefaultTableModel model, javax.swing.JTable table){
-        int tableTotalRow = table.getRowCount();
-        if (tableTotalRow != 0){ 
-            //Una vez obtenido el table limpiamos la tabla
-            for(int i = tableTotalRow-1; i >= 0; i--){
-                model.removeRow(i);
-            }
-        }
-    }
-    
-        //Obtiene el valor de la columna Platillo
-        //Obtiene el nombre de la columna Precio
-        //Obtiene la cantidad de platillos del jSpinner
-    private void addSaucerToList(){
-        String[] fila = new String[4];
-        fila[0] = cantidadProductoSpinner.getValue().toString();
-        fila[1]= modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 0).toString();
-        fila[2]= modelPlatillosTable.getValueAt(platillosTable.getSelectedRow(), 1).toString();
-        modelPedidosTable.addRow(fila);
-    }
-    
-    //Actualiza la cantidad de platillos pedidos de la tabla
-    private void updateAmountSaucerAtList(String platillo){
-        int oldValue;
-        int newValue;
-        int totalValue;
-        int rowCount;
-        rowCount = pedidosTable.getRowCount();
-        newValue = Integer.parseInt(cantidadProductoSpinner.getValue().toString());
-        oldValue = Integer.parseInt(modelPedidosTable.getValueAt(0, 0).toString());
-        totalValue = oldValue+newValue;
-        for(int i=0; i<rowCount; i++){
-            if(platillo.equals(modelPedidosTable.getValueAt(i, 1).toString())){
-                modelPedidosTable.setValueAt(totalValue, i, 0);
-            }
-        }
-    }
-    
-    private void iniciarTimerEn(int column){
-        horas =calendario.get(Calendar.HOUR_OF_DAY);
-        minutos = calendario.get(Calendar.MINUTE);
-        segundos = calendario.get(Calendar.SECOND);
-        int lastRow=(pedidosTable.getRowCount())-1;
-        modelPedidosTable.setValueAt(horas +":" +minutos +":" +segundos, lastRow, column);
-    }
-    
-    //Función que actualiza el total de la tabla pedidosTable
-    private void updateTotal (){
-        int filas = pedidosTable.getRowCount();
-        int columnaPrecio = 2;
-        int columnaCantidad = 0;
-        int cantidad;
-        int precio;
-        int total= 0;
-        if(filas>0){
-            for(int i = 0; i<filas; i++){
-                cantidad = Integer.parseInt(""+modelPedidosTable.getValueAt(i, columnaPrecio));
-                precio = Integer.parseInt(""+modelPedidosTable.getValueAt(i, columnaCantidad));
-                total=total+(precio*cantidad);
-            }
-            lptTotalTextField.setText("" +total);
-        }
-    }
-    
-    private void resetTotal(){
-        lptTotalTextField.setText("0.00");
-    }
-    
-    //Función que realiza una espera de 1000ms(1 segundo)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EliminarBtn;
     private javax.swing.JPanel administracionTab;
     private javax.swing.JButton atAgregarBTN;
     private javax.swing.JLabel atAgregarPlatilloLabel;
     private javax.swing.JLabel atAgregarPlatilloLabel2;
     private javax.swing.JTextField atAreaNombreTF;
-    private javax.swing.JTextField atPrecioPlatilloTF;
+    private javax.swing.JFormattedTextField atPrecioFTF;
     private javax.swing.JComboBox<String> atTipoPlatilloCB;
     private javax.swing.JSpinner cantidadProductoSpinner;
-    private javax.swing.JMenuItem eliminarOrdenOpcionPopUpMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel listaPedidosTab;
     private javax.swing.JLabel lptTotalLabel;
     private javax.swing.JTextField lptTotalTextField;
     private javax.swing.JScrollPane ltSelectMesaTableScrollPane;
     private javax.swing.JComboBox<String> ltSelectorMesaCB;
-    private javax.swing.JPopupMenu menuPedidosPopUp;
     private javax.swing.JButton mwBebidasBTN;
     private java.awt.Label mwEasyBitesLabel;
     private javax.swing.JButton mwEntradasBTN;
